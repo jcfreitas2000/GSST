@@ -169,6 +169,11 @@ a:focus, a:hover {
     border-color: #1d6e20;
 }
 
+.btn-primary:active {
+    background-color: #125114 !important;
+    border-color: #1d6e20 !important;
+}
+
 .navbar-green .navbar-toggle {
     border-color: #1d6e20;
 }
