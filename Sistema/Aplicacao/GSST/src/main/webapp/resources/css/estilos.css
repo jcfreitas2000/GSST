@@ -110,6 +110,7 @@ html, body{
 /*NavBar verde*/
 .navbar-green {
     background-color: #26942C;
+    background-image: linear-gradient(to bottom, #37C03F, #1D6E20 130%);
 }
 
 /*Links da navbar*/
