@@ -45,7 +45,7 @@
                             <input type="password" class="form-control" id="senha" placeholder="Senha">
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-logar" value="Logar" style="width: 100%">
+                            <input type="submit" class="btn btn-primary btn-logar" value="Logar">
                         </div>
                     </form>
                     <div class="text-right">

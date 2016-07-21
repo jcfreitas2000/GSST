@@ -27,6 +27,12 @@ html, body{
     -webkit-text-size-adjust: none;
 }
 
+p {
+    text-indent: 50px;
+    margin: 0px 0px 5px;
+    text-align: justify;
+}
+
 .wraper{
     position: relative;
     min-height: 100%;
@@ -45,6 +51,50 @@ html, body{
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+p + .list-group, p + .box {
+    margin-top: 20px;
+}
+
+.list-group {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.list-group {
+    list-style: decimal inside;
+}
+
+ol .list-group-item {
+    display: list-item;
+    cursor: pointer;
+}
+
+ol .list-group-item:nth-child(odd){
+    background:#f7f7f7;
+}
+
+ol .list-group-item:focus, ol .list-group-item:hover{
+    background:#ddd;
+}
+
+.badge {
+    background-color: #1d6e20;
 }
 
 .box-center{
@@ -77,11 +127,24 @@ html, body{
 
 .dropdown-menu .dropdown-menu-footer{
     padding: 10px 15px;
-    border-top: 1px solid #e7e7e7;
+    border-top: 1px solid #ddd;
 }
 
 .dropdown-menu .dropdown-menu-footer .pull-left {
     margin-top: 7px;
+}
+
+.conteudo{
+    max-width: 1200px;
+    padding: 10px 10px 100px;
+    margin: auto;
+}
+
+@media(min-width: 768px){
+    /*Para telas grandes adiciona mais padding nas laterais*/
+    .conteudo{
+        padding: 10px 90px 100px;
+    }
 }
 
 .footer{
@@ -175,6 +238,13 @@ a:focus, a:hover {
     border-color: #1d6e20 !important;
 }
 
+.form-control:focus {
+    border-color: #26942c;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(38, 148, 44, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(38, 148, 44, 0.6);
+}
+
 .navbar-green .navbar-toggle {
     border-color: #1d6e20;
 }
@@ -194,13 +264,7 @@ a:focus, a:hover {
 .navbar-green .navbar-right{
     margin-bottom: 0px;
 }
-/*
-@media(max-width: 767px){
-    .navbar-green .open .dropdown-menu {
-        color: #fff;
-    }
-    
-    .navbar-green .open .dropdown-menu a {
-        color: #fff;
-    }
-}*/
+
+.pointer{
+    cursor: pointer;
+}
