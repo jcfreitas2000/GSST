@@ -55,7 +55,7 @@
             <artifactId>spring-framework-bom</artifactId>
             <version>4.0.1.RELEASE</version>
             <type>pom</type>
-            <scope>import</scope>
+            <!--<scope>import</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -131,6 +131,16 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.servlet.jsp.jstl</artifactId>
             <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

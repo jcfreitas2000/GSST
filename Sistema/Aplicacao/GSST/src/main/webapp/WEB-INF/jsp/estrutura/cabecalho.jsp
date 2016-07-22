@@ -20,10 +20,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/processos">Processos</a></li>
                 <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="<%=request.getContextPath()%>/normas-regulamentadoras">Normas Regulamentadoras</a></li>
                 <li class="${requestScope['javax.servlet.forward.request_uri'].contains("ca") ? "active" : ""}"><a href="<%=request.getContextPath()%>/ca">Certificado de Aprovação</a></li>
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("epis") ? "active" : ""}"><a href="<%=request.getContextPath()%>/epis">EPIs</a></li>
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/processos">Processos</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"></a></li>

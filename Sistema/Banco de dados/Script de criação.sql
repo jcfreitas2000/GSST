@@ -82,7 +82,11 @@ CREATE TABLE nr(
 CREATE TABLE maquina(
 	id_maquina serial primary key,
 	num_patrimonio text unique,
-	descricao text
+	descricao text,
+	id_unidade int not null
+		REFERENCES unidade (id_unidade)
+		on delete cascade
+		on update cascade
 );
 
 CREATE TABLE processo(

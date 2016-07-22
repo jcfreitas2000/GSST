@@ -14,6 +14,6 @@ public class IndexController {
     
     @RequestMapping(value = {"index"})
     public String index(){
-        return "index";
+        return "redirect:processos";
     }
 }
