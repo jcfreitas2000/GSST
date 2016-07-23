@@ -1,6 +1,8 @@
 package br.com.gsst.controller;
 
+import br.com.gsst.dao.MaquinaDAO;
 import br.com.gsst.model.Maquina;
+import br.com.gsst.model.Nr;
 import br.com.gsst.model.Processo;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +26,20 @@ public class ProcessosController {
     
     @ModelAttribute("maquinas")
     public List<Maquina> maquinas(){
-        return new ArrayList<>();
+        return new MaquinaDAO().getMaquinas();
     }
     
     @ModelAttribute("processo")
     public Processo processo(){
         return new Processo();
     }
+    
+    @ModelAttribute("nrs")
+    public List<Nr> nrs(){
+        return new ArrayList<>();
+    }
 
-    @RequestMapping("processos")
+    @RequestMapping("user/processos")
     public String processos(){
         return "index";
     }

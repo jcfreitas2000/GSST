@@ -8,23 +8,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>GSST - Segurança é vida</title>
-
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!-- Bootstrap 3.3.6 -->
-        <link href="resources/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!--Folha de estilos-->
-        <link href="resources/css/estilos.css" rel="stylesheet" type="text/css" />
+        <%@include file="/WEB-INF/jsp/estrutura/importMetaCss.jsp" %>
     </head>
 
     <body>
         <div class="wraper">
             <!--Cabeçalho-->
-            <img class="img-center" src="resources/imagens/logo.png" alt="gsst"/>
+            <img class="img-center" src="<%=request.getContextPath()%>/resources/imagens/logo.png" alt="gsst"/>
             <div class="text-center">
                 <h2>
                     Bem vindo ao sistema GSSTSV 
@@ -35,17 +27,20 @@
             <!--Conteúdo-->
             <section class="container">
                 <div class="box box-center">
-                    <form action="index" method="POST">
+                    ${mensagem.getMensagem()}
+                    <form action="login" method="POST">
                         <div class="form-group">
                             <label for="login">Login</label>
-                            <input type="text" class="form-control" id="login" placeholder="Login">
+                            <input type="email" class="form-control" name="funcionario.email" id="login" placeholder="Login" value="${email}" required />
+                            <form:errors path="usuario.funcionario.email" cssStyle="color:red"/>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" placeholder="Senha">
+                            <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha" required />
+                            <form:errors path="usuario.senha" cssStyle="color:red"/>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-logar" value="Logar">
+                            <input type="submit" class="btn btn-primary btn-logar" value="Logar" />
                         </div>
                     </form>
                     <div class="text-right">

@@ -18,8 +18,8 @@
 <!--CSS-->
 
 <!-- Bootstrap 3.3.6 -->
-<link href="resources/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/resources/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <!--Font Awesome 4.6.3-->
-<link href="resources/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="<%=request.getContextPath()%>/resources/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <!--Folha de estilos-->
-<link href="resources/css/estilos.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/resources/css/estilos.css" rel="stylesheet" type="text/css" />

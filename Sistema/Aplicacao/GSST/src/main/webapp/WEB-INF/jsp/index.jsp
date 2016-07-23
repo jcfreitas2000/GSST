@@ -21,7 +21,7 @@
 
                 <h2>Processos</h2>
 
-                <div id="adicionar-maquina" class="box hidden">
+                <div id="maquina" style="display: none;" class="box">
                     <div class="box-title">
                         Adicionar máquina
                     </div>
@@ -44,12 +44,12 @@
                         </div>
                         <div class="row text-center">
                             <input type="submit" class="btn btn-primary" value="Salvar" />
-                            <input type="button" class="btn btn-default" value="Cancelar" />
+                            <input id="btn-cancelar-maquina" type="button" class="btn btn-default" value="Cancelar" />
                         </div>
                     </form:form>
                 </div>
 
-                <div class="box">
+                <div id="processo" class="box">
                     <div class="box-title">
                         Processo
                     </div>
@@ -58,13 +58,20 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <form:label path="maquina">Selecione a máquina</form:label>
-                                    <form:select path="maquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
-                                        <form:option value="Selecione a máquina" />
-                                        <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
-                                    </form:select>
+                                        <div class="input-group">
+                                        <form:select path="maquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
+                                            <form:option value="Selecione a máquina" />
+                                            <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
+                                        </form:select>
+                                        <span class="input-group-btn">
+                                            <button id="btn-maquina" type="button" class="btn btn-primary">
+                                                <span class="fa fa-plus" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                     <form:errors path="maquina" cssStyle="color:red"/>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Adicionar fotos</label>
@@ -88,6 +95,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <form:label path="nrs">Selecione a Norma Regulamentadora</form:label>
+                                    <form:select path="nrs" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
+                                        <form:option value="Selecione a máquina" />
+                                        <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
+                                    </form:select>
+                                    <form:errors path="nrs" cssStyle="color:red"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <form:label path="medidaCorretiva" for="medidaCorretiva">Medida Corretiva</form:label>
+                                    <form:textarea id="medidaCorretiva" type="text" path="medidaCorretiva" cssClass="form-control" placeholder="Medida Corretiva" required="required" data-toggle="tooltip" data-placement="bottom" title="Digite a medida corretiva para o processo" />
+                                    <form:errors path="medidaCorretiva" cssStyle="color:red"/>
+                                </div>
+                            </div>  
+                        </div>
                         <div class="row text-center">
                             <input type="submit" class="btn btn-primary" value="Salvar" />
                             <input type="button" class="btn btn-default" value="Cancelar" />
@@ -102,5 +130,6 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
+        <script src="<%=request.getContextPath()%>/resources/js/processos.js" type="text/javascript"></script>
     </body>
 </html>

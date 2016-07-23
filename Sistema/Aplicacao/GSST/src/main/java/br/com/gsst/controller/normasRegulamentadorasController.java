@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class normasRegulamentadorasController {
 
-    @RequestMapping("normas-regulamentadoras")
+    @RequestMapping("user/normas-regulamentadoras")
     public String normasRegulamentadoras(){
         return "normasRegulamentadoras";
     }

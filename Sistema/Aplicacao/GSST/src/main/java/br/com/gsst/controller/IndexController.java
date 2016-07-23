@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
     
-    @RequestMapping(value = {"index"})
+    @RequestMapping(value = {"user/index", "user/"})
     public String index(){
         return "redirect:processos";
     }

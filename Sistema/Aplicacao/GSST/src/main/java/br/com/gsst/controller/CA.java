@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CA {
-    @RequestMapping("ca")
+    @RequestMapping("user/ca")
     public String ca(){
         return "ca";
     }

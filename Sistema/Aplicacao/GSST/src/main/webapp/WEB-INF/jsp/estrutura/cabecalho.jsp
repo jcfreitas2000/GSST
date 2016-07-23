@@ -20,9 +20,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/processos">Processos</a></li>
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="<%=request.getContextPath()%>/normas-regulamentadoras">Normas Regulamentadoras</a></li>
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("ca") ? "active" : ""}"><a href="<%=request.getContextPath()%>/ca">Certificado de Aprovação</a></li>
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/processos">Processos</a></li>
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a></li>
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("ca") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/ca">Certificado de Aprovação</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"></a></li>
@@ -32,12 +32,12 @@
                         <div class="dropdown-menu-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="fa fa-user" aria-hidden="true"></span> José Carlos de Freitas
+                                    <span class="fa fa-user" aria-hidden="true"></span> ${usuarioLogado.funcionario.nome}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="fa fa-industry" aria-hidden="true"></span> Grupo de Banco de Dados
+                                    <span class="fa fa-industry" aria-hidden="true"></span> ${usuarioLogado.funcionario.unidade.nome}
                                 </div>
                             </div>
                             <div class="row">
@@ -51,7 +51,7 @@
                                 <a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar dados</a>
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="<%=request.getContextPath()%>/login">Logoff</a>
+                                <a class="btn btn-primary" href="<%=request.getContextPath()%>/logoff">Logoff</a>
                             </div>
                         </div>
                     </div>

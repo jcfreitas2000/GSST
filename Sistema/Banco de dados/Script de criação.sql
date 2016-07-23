@@ -4,6 +4,8 @@
 	Data: 17:00:00, 21/07/2016
 */
 
+BEGIN;
+
 CREATE TABLE empresa(
 	id_empresa serial primary key,
 	nome text not null
@@ -11,6 +13,7 @@ CREATE TABLE empresa(
 
 CREATE TABLE unidade(
 	id_unidade serial primary key,
+	nome text not null,
 	cnpj text not null unique,
 	ie text unique,
 	logradouro text,
@@ -122,3 +125,5 @@ CREATE TABLE processo_nr(
 		on update cascade,
 	CONSTRAINT processo_nr_pkey primary key (id_processo, id_nr)
 );
+
+COMMIT;
