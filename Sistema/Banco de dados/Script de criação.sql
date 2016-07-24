@@ -71,10 +71,9 @@ CREATE TABLE valores(
 CREATE TABLE nr(
 	id_nr serial primary key,
 	numero text not null unique,
-	titulo text not null,
 	descricao text,
-	tipo char(1) not null,
-	nivel int not null,
+	tipo char(1),
+	nivel int,
 	data_insercao timestamp default now(),
 	id_nr_item int
 		REFERENCES nr (id_nr)
