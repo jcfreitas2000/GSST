@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,10 +29,9 @@ public class Nr implements java.io.Serializable {
     private int idNr;
     private Nr nr;
     private String numero;
-    private String titulo;
     private String descricao;
-    private char tipo;
-    private int nivel;
+    private Character tipo;
+    private Integer nivel;
     private Date dataInsercao;
     private Set<Processo> processos = new HashSet(0);
     private Set<Nr> nrs = new HashSet(0);
@@ -39,19 +39,17 @@ public class Nr implements java.io.Serializable {
     public Nr() {
     }
 
-    public Nr(int idNr, String numero, String titulo, char tipo, int nivel) {
+    public Nr(int idNr, String numero, String titulo, Character tipo, Integer nivel) {
         this.idNr = idNr;
         this.numero = numero;
-        this.titulo = titulo;
         this.tipo = tipo;
         this.nivel = nivel;
     }
 
-    public Nr(int idNr, Nr nr, String numero, String titulo, String descricao, char tipo, int nivel, Date dataInsercao, Set processos, Set nrs) {
+    public Nr(int idNr, Nr nr, String numero, String descricao, Character tipo, Integer nivel, Date dataInsercao, Set processos, Set nrs) {
         this.idNr = idNr;
         this.nr = nr;
         this.numero = numero;
-        this.titulo = titulo;
         this.descricao = descricao;
         this.tipo = tipo;
         this.nivel = nivel;
@@ -71,7 +69,7 @@ public class Nr implements java.io.Serializable {
         this.idNr = idNr;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_nr_item")
     public Nr getNr() {
         return this.nr;
@@ -90,15 +88,6 @@ public class Nr implements java.io.Serializable {
         this.numero = numero;
     }
 
-    @Column(name = "titulo", nullable = false)
-    public String getTitulo() {
-        return this.titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     @Column(name = "descricao")
     public String getDescricao() {
         return this.descricao;
@@ -108,21 +97,21 @@ public class Nr implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    @Column(name = "tipo", nullable = false, length = 1)
-    public char getTipo() {
+    @Column(name = "tipo", length = 1)
+    public Character getTipo() {
         return this.tipo;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(Character tipo) {
         this.tipo = tipo;
     }
 
-    @Column(name = "nivel", nullable = false)
-    public int getNivel() {
+    @Column(name = "nivel")
+    public Integer getNivel() {
         return this.nivel;
     }
 
-    public void setNivel(int nivel) {
+    public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 
@@ -145,7 +134,8 @@ public class Nr implements java.io.Serializable {
         this.processos = processos;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nr")
+    @OrderBy("numero")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "nr")
     public Set<Nr> getNrs() {
         return this.nrs;
     }

@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index">GSST</a>
+            <a class="navbar-brand" href="<%=request.getContextPath()%>/user/index">GSST</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

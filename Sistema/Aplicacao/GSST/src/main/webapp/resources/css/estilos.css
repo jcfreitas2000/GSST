@@ -77,9 +77,14 @@ p + .list-group, p + .box {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+.list-group-item{
+    border-width: 0px;
+}
+
 .list-group-item:first-child {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    border-top: 1px solid #ddd;
 }
 
 .list-group-item:last-child {
@@ -87,20 +92,24 @@ p + .list-group, p + .box {
     border-bottom-right-radius: 2px;
 }
 
-.list-group {
+ol .list-group {
     list-style: decimal inside;
 }
 
 ol .list-group-item {
     display: list-item;
-    cursor: pointer;
 }
 
-ol .list-group-item:nth-child(odd){
+.list-group-item{
+    color: #555;
+    background: #fff;
+}
+
+a:nth-child(odd) .list-group-item{
     background:#f7f7f7;
 }
 
-ol .list-group-item:focus, ol .list-group-item:hover{
+a .list-group-item:focus, a .list-group-item:hover{
     background:#ddd;
 }
 

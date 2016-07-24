@@ -22,11 +22,21 @@ INSERT INTO public.funcionario(
             numero, bairro, id_unidade)
     VALUES ('José Carlos de Freitas', 'Desenvolvedor', '', 'jcfreitas2000@hotmail.com', '17981008663', 'rua Nhandeara',
             '2665', 'Eldorado', (SELECT id_unidade FROM unidade WHERE email ilike 'gsst@gmail.com'));
+            
+INSERT INTO public.funcionario(
+            nome, funcao, cpf, email, contato, logradouro, 
+            numero, bairro, id_unidade)
+    VALUES ('Weylon Cassini', 'Desenvolvedor', '12345678901', 'weylon.cassini@hotmail.com', '', '',
+            '', '', (SELECT id_unidade FROM unidade WHERE email ilike 'gsst@gmail.com'));
 
 --Inserção dos usuários dos funcionários
 INSERT INTO public.usuario(
             id_funcionario, senha, ativo, nivel_acesso)
     VALUES ((SELECT id_funcionario FROM funcionario WHERE email ilike 'jcfreitas2000@hotmail.com'), '123', true, 'admin');
+    
+INSERT INTO public.usuario(
+            id_funcionario, senha, ativo, nivel_acesso)
+    VALUES ((SELECT id_funcionario FROM funcionario WHERE email ilike 'weylon.cassini@hotmail.com'), '123', true, 'admin');
 
 --Inserção das máquinas
 INSERT INTO public.maquina(
