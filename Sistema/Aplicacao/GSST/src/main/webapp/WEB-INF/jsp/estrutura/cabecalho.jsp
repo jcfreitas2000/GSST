@@ -20,7 +20,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/processos">Processos</a></li>
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/processos/">Processos</a></li>
                 <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a></li>
                 <li class="${requestScope['javax.servlet.forward.request_uri'].contains("ca") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/ca">Certificado de Aprovação</a></li>
             </ul>

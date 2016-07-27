@@ -18,15 +18,17 @@
 
             <!--Conteúdo-->
             <div class="conteudo">
-                <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a> 
-                <c:forEach var="num" items="${mapa}">
-                    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${num.replace(".","-")}">NR ${num}</a> 
-                </c:forEach>
-                <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> NR ${nr.getNumero()}
-                
+                <div class="mapa">
+                    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a> 
+                    <c:forEach var="num" items="${mapa}">
+                        <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${num.replace(".","-")}">NR ${num}</a> 
+                    </c:forEach>
+                    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> NR ${nr.getNumero()}
+                </div>
+
                 <h2>Norma Regulamentadora ${nr.getNumero()}</h2>
                 <p>${nr.getDescricao()}</p>
-                
+
                 <ul class="list-group">
                     <c:forEach var="nr" items="${nr.getNrs()}">
                         <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">

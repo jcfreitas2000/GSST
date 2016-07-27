@@ -4,15 +4,34 @@
  Arquivo: processos
  */
 
-$("#btn-maquina").click(function(){
-    $("#maquina").show();
-    $("#processo").hide();
+$(document).ready(function () {
+    $("#btn-maquina").click(function () {
+        $("#maquina").show();
+        $("#processo").hide();
 
-    $("#frmMaquina").trigger("reset");
-    $("#numPatrimonio").focus();
+        $("#frmMaquina").trigger("reset");
+        $("#numPatrimonio").focus();
+    });
+
+    $("#btn-cancelar-maquina").click(function () {
+        $("#maquina").hide();
+        $("#processo").show();
+    });
+
+    if ($("#open-nr").val()) {
+        $('#modal-nrs').modal('show');
+    }
 });
 
-$("#btn-cancelar-maquina").click(function(){
-    $("#maquina").hide();
-    $("#processo").show();
-});
+function ajaxNr(id) {
+    $.ajax({
+        type: "GET",
+        url: "nr?nr=" + id,
+        success: function (data) {
+            $("modal-nrs .modal-body:first-child").html(data);
+        },
+        error: function (e) {
+            alert('Error: ' + e);
+        }
+    });
+}

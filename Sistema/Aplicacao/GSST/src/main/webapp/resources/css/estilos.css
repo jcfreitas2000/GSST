@@ -298,3 +298,12 @@ a:focus, a:hover {
 .input-group-btn:last-child > .btn{
     margin-left: 5px;
 }
+
+.modal-body{
+    overflow: auto;
+    height: 250px;
+}
+
+.mapa{
+    margin: 0px 0px 20px;
+}

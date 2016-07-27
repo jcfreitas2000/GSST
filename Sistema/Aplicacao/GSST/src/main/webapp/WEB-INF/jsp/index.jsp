@@ -12,6 +12,34 @@
         <%@include file="/WEB-INF/jsp/estrutura/importMetaCss.jsp" %>
     </head>
     <body>
+        <!-- Modal para escolha de NRs -->
+        <div class="modal fade" id="modal-nrs" tabindex="-1" role="dialog" aria-labelledby="modal-nrs-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modal-nrs-label">${nr == null ? "Normas Regulamentadoras" : "Norma Regulamentadora Nº  ".concat(nr.getNumero())}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <c:forEach var="nr" items="${nrs}">
+                                <a href="#" onclick="ajaxNr(${nr.getNumero().replace(".","-")})">
+                                    <li class="list-group-item">
+                                        <span class="badge">${nr.getNrs().size()}</span>
+                                        Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
+                                    </li>
+                                </a>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="wraper">
             <!--Cabeçalho-->
             <%@include file="/WEB-INF/jsp/estrutura/cabecalho.jsp" %>
@@ -53,14 +81,14 @@
                     <div class="box-title">
                         Processo
                     </div>
-                    <form:form action="salvar-processo" id="frmProcesso" commandName="processo" method="POST">
+                    <form:form action="salvar-processo" id="frmProcesso" commandName="Processo" method="POST">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <form:label path="maquina">Selecione a máquina</form:label>
                                         <div class="input-group">
                                         <form:select path="maquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
-                                            <form:option value="Selecione a máquina" />
+                                            <option value="0">Selecione uma máquina</option>
                                             <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
                                         </form:select>
                                         <span class="input-group-btn">
@@ -99,10 +127,10 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <form:label path="nrs">Selecione a Norma Regulamentadora</form:label>
-                                    <form:select path="nrs" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
-                                        <form:option value="Selecione a máquina" />
-                                        <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
-                                    </form:select>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-nrs">
+                                            Launch demo modal
+                                        </button>
                                     <form:errors path="nrs" cssStyle="color:red"/>
                                 </div>
                             </div>
