@@ -33,6 +33,10 @@ public class NrDAO extends GenericDAO<Nr, BigDecimal>{
     }
 
     public Nr getNrByNumero(String num){
+        if(num.length() == 1){
+            num = "0" + num;
+        }
+        
         Session s = this.getSession();
         Nr nr = null;
 

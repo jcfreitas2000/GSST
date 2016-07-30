@@ -3,8 +3,11 @@
  Data: 23/07/2016, 18:24:11
  Arquivo: processos
  */
+var nr = null;
 
 $(document).ready(function () {
+    nr = $("#modal-nrs .modal-body:first").html();
+
     $("#btn-maquina").click(function () {
         $("#maquina").show();
         $("#processo").hide();
@@ -18,20 +21,18 @@ $(document).ready(function () {
         $("#processo").show();
     });
 
-    if ($("#open-nr").val()) {
-        $('#modal-nrs').modal('show');
-    }
+    $("#adicionar-nr").click(function () {
+        $("#modal-nrs").modal("hide");
+        $("#nrs").append("<li>" + $("#modal-nrs h2:first").html() + "</li>");
+    });
 });
 
 function ajaxNr(id) {
-    $.ajax({
-        type: "GET",
-        url: "nr?nr=" + id,
-        success: function (data) {
-            $("modal-nrs .modal-body:first-child").html(data);
-        },
-        error: function (e) {
-            alert('Error: ' + e);
-        }
-    });
+    $("#modal-nrs .modal-body:first").load("nr/" + id);
+    $("#adicionar-nr").show();
+}
+
+function resetNr() {
+    $("#modal-nrs .modal-body:first").html(nr);
+    $("#adicionar-nr").hide();
 }

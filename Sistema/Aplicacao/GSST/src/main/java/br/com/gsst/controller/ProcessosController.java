@@ -5,10 +5,12 @@ import br.com.gsst.dao.NrDAO;
 import br.com.gsst.model.Maquina;
 import br.com.gsst.model.Nr;
 import br.com.gsst.model.Processo;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
@@ -44,12 +46,22 @@ public class ProcessosController {
         return "index";
     }
     
-    @RequestMapping(value = "user/processos/nr", method = RequestMethod.GET)
-    public ModelAndView processos(@RequestParam(value = "nr") String num) {
+    @RequestMapping("user/processos/nr/{num}")
+    public String processos(@PathVariable(value = "num") String num, Model model) {
         num = num.replace("-", ".");
-        
-        ModelAndView qq = new ModelAndView("nrAux");
 
-        return qq;
+        Nr nr = new NrDAO().getNrByNumero(num);
+
+        List<String> mapa = new ArrayList<>();
+        Nr aux = nr.getNr();
+        while (aux != null) {
+            mapa.add(0, aux.getNumero());
+            aux = aux.getNr();
+        }
+        
+        model.addAttribute("nr", nr);
+        model.addAttribute("mapa", mapa);
+
+        return "nrAux";
     }
 }

@@ -4,10 +4,11 @@
     Arquivo: nrAux
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="mapa">
-    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a> 
+    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="#" onclick="resetNr()">Normas Regulamentadoras</a> 
     <c:forEach var="num" items="${mapa}">
-        <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${num.replace(".","-")}">NR ${num}</a> 
+        <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="#" onclick="ajaxNr('${num.replace(".","-")}')">NR ${num}</a> 
     </c:forEach>
     <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> NR ${nr.getNumero()}
 </div>
@@ -16,11 +17,11 @@
 <p>${nr.getDescricao()}</p>
 
 <ul class="list-group">
-    <c:forEach var="nr" items="${nr.getNrs()}">
-        <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
+    <c:forEach var="aux" items="${nr.getNrs()}">
+        <a href="#" onclick="ajaxNr('${aux.getNumero().replace(".","-")}')">
             <li class="list-group-item">
-                <span class="badge">${nr.getNrs().size()}</span>
-                Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
+                <span class="badge">${aux.getNrs().size()}</span>
+                Norma Regulamentadora Nº ${aux.getNumero()} - ${aux.getDescricao()}
             </li>
         </a>
     </c:forEach>

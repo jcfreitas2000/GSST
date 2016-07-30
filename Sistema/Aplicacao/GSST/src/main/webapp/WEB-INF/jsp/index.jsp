@@ -23,7 +23,7 @@
                     <div class="modal-body">
                         <ul class="list-group">
                             <c:forEach var="nr" items="${nrs}">
-                                <a href="#" onclick="ajaxNr(${nr.getNumero().replace(".","-")})">
+                                <a href="#" onclick="ajaxNr('${nr.getNumero().replace(".","-")}')">
                                     <li class="list-group-item">
                                         <span class="badge">${nr.getNrs().size()}</span>
                                         Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
@@ -34,7 +34,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Adicionar</button>
+                        <button id="adicionar-nr" type="button" class="btn btn-primary" style="display: none;">Adicionar</button>
                     </div>
                 </div>
             </div>
@@ -126,12 +126,14 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <form:label path="nrs">Selecione a Norma Regulamentadora</form:label>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-nrs">
-                                            Launch demo modal
-                                        </button>
-                                    <form:errors path="nrs" cssStyle="color:red"/>
+                                    <label>Selecione a Norma Regulamentadora</label>
+                                    <ul id="nrs">
+                                        
+                                    </ul>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-nrs">
+                                        Launch demo modal
+                                    </button>
                                 </div>
                             </div>
                         </div>
