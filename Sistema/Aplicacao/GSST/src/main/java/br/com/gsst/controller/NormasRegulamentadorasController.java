@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
     Arquivo: normasRegulamentadorasController
  */
 @Controller
-public class normasRegulamentadorasController {
+public class NormasRegulamentadorasController {
 
     @ModelAttribute("nrs")
     public List<Nr> nrs() {

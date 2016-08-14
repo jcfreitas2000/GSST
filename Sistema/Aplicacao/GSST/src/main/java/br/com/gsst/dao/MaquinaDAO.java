@@ -31,4 +31,22 @@ public class MaquinaDAO extends GenericDAO<Maquina, BigDecimal>{
 
         return maquinas;
     }
+
+    public List<Maquina> getMaquinasByUnidade(int idUnidade){
+        Session s = this.getSession();
+        List<Maquina> maquinas = null;
+
+        try {
+            s.beginTransaction();
+            Query q = s.createQuery(" from Maquina where unidade.idUnidade = :idUnidade")
+                    .setInteger("idUnidade", idUnidade);
+            maquinas = findMany(q);
+            s.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            s.getTransaction().rollback();
+        }
+
+        return maquinas;
+    }
 }

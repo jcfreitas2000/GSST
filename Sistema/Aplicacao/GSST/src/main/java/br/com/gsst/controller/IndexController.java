@@ -5,14 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
     Autor: José Carlos de Freitas
-    Data: 10/07/2016, 23:39:43
+    Data: 13/08/2016, 21:59:10
     Arquivo: IndexController
 */
-
 @Controller
 public class IndexController {
-    
-    @RequestMapping(value = {"user/index", "user/"})
+
+    @RequestMapping("user/index")
     public String index(){
         return "redirect:/user/processos/";
     }

@@ -99,6 +99,7 @@ CREATE TABLE processo(
 	data timestamp default now(),
 	prazo date,
 	multa decimal(10,2),
+	num_fotos int,
 	id_relator int not null
 		REFERENCES funcionario (id_funcionario)
 		on delete cascade

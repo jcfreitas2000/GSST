@@ -1,7 +1,7 @@
 <%-- 
     Autor: José Carlos de Freitas
     Data: 11/07/2016, 12:09:22
-    Arquivo: index
+    Arquivo: cadastrarProcesso
 --%>
 
 <!DOCTYPE html>
@@ -81,14 +81,19 @@
                     <div class="box-title">
                         Processo
                     </div>
-                    <form:form action="salvar-processo" id="frmProcesso" commandName="Processo" method="POST">
+                    <form:form action="salvar-processo" id="frmProcesso" commandName="processo" enctype="multipart/form-data" method="POST">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                ${msgProcesso.getAlert()}
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <form:label path="maquina">Selecione a máquina</form:label>
+                                    <form:label path="maquina.idMaquina">Selecione a máquina</form:label>
                                         <div class="input-group">
-                                        <form:select path="maquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
-                                            <option value="0">Selecione uma máquina</option>
+                                        <form:select path="maquina.idMaquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
+                                            <option value="${null}">Selecione uma máquina</option>
                                             <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
                                         </form:select>
                                         <span class="input-group-btn">
@@ -97,13 +102,13 @@
                                             </button>
                                         </span>
                                     </div>
-                                    <form:errors path="maquina" cssStyle="color:red"/>
+                                    <form:errors path="maquina.idMaquina" cssStyle="color:red"/>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Adicionar fotos</label>
-                                    <input id="input-1" type="file" class="file">
+                                    <input id="imagens" name="imagens" type="file" multiple />
                                 </div>
                             </div>
                         </div>
@@ -126,14 +131,19 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Selecione a Norma Regulamentadora</label>
-                                    <ul id="nrs">
-                                        
+                                    <input type="hidden" id="arrayNrs" name="arrayNrs" />
+                                    <label>
+                                        Selecione as Normas Regulamentadoras
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-nrs">
+                                            <span class="fa fa-plus" aria-hidden="true"></span>
+                                        </button>
+                                    </label>
+                                    <ul id="lista-nrs" class="list-group">
+
                                     </ul>
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-nrs">
-                                        Launch demo modal
-                                    </button>
+                                    <div id="erro-nr" style="display: none;" class="alert alert-danger">
+                                        Adicione ao menos uma Norma Relugamentadora
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,22 +154,41 @@
                                     <form:textarea id="medidaCorretiva" type="text" path="medidaCorretiva" cssClass="form-control" placeholder="Medida Corretiva" required="required" data-toggle="tooltip" data-placement="bottom" title="Digite a medida corretiva para o processo" />
                                     <form:errors path="medidaCorretiva" cssStyle="color:red"/>
                                 </div>
-                            </div>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <form:label path="funcionarioByIdRespCorrecao.idFuncionario" for="funcionarioByIdRespCorrecao">Funcionário responsável</form:label>
+                                    <form:select path="funcionarioByIdRespCorrecao.idFuncionario" id="funcionarioByIdRespCorrecao" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Selecione o funcionário responsável por corrigir esse processo.">
+                                        <option value="${null}">Selecione um funcionário</option>
+                                        <form:options items="${funcionarios}" itemValue="idFuncionario" itemLabel="nome"/>
+                                    </form:select>
+                                    <form:errors path="funcionarioByIdRespCorrecao.idFuncionario" cssStyle="color:red"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <form:label path="prazo" for="prazo">Prazo para correção</form:label>
+                                    <form:input id="prazo" type="date" path="prazo" cssClass="form-control" placeholder="Prazo para correção" data-toggle="tooltip" data-placement="bottom" title="Digite o prazo para correção do processo" />
+                                    <form:errors path="prazo" cssStyle="color:red"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="row text-center">
                             <input type="submit" class="btn btn-primary" value="Salvar" />
-                            <input type="button" class="btn btn-default" value="Cancelar" />
+                            <a href="." class="btn btn-default">Cancelar</a>
                         </div>
                     </form:form>
                 </div>
-
-            </div>
+            </div><!--Fim conteúdo-->
 
             <!--Footer-->
             <%@include file="/WEB-INF/jsp/estrutura/rodape.jsp" %>
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/js/processos.js" type="text/javascript"></script>
+        <!--JS da página-->
+        <script src="<%=request.getContextPath()%>/resources/js/frmProcessos.js" type="text/javascript"></script>
     </body>
 </html>

@@ -37,6 +37,8 @@ public class NrDAO extends GenericDAO<Nr, BigDecimal>{
             num = "0" + num;
         }
         
+        num = num.replace("-", ".");
+        
         Session s = this.getSession();
         Nr nr = null;
 

@@ -65,9 +65,11 @@ public class Mensagem {
         String div = "";
         if (this.tipoAlert != null && this.titulo != null) {
             div = "<div class=\"alert alert-" + this.tipoAlert + "\">"
-                    + "<h4>" + this.titulo + "</h4>"
-                    + this.texto
-                    + "</div>";
+                    + "<h4>" + this.titulo + "</h4>";
+            if (this.texto != null) {
+                div += this.texto;
+            }
+            div += "</div>";
         }
 
         return div;
@@ -77,7 +79,7 @@ public class Mensagem {
         String div = "";
         if (this.tipoAlert != null && this.titulo != null) {
             div = "<span style='color:red;'>"
-                    + this.texto
+                    + this.titulo
                     + "</span>";
         }
 

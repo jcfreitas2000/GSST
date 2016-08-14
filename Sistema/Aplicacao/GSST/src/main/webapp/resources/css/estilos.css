@@ -106,16 +106,25 @@ ol .list-group-item {
     background: #fff;
 }
 
-a:nth-child(odd) .list-group-item{
+a:nth-child(odd) .list-group-item, .red-list:nth-child(odd){
     background:#f7f7f7;
 }
 
-a .list-group-item:focus, a .list-group-item:hover{
+.red-list{
+    border-width: 1px;
+}
+
+a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .list-group-item:hover{
     background:#ddd;
 }
 
 .badge {
     background-color: #1d6e20;
+}
+
+.red-list > span {
+    background-color: red;
+    cursor: pointer;
 }
 
 .box-center{

@@ -45,21 +45,17 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-<!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="WEB-INF/ValidationMessages" />
     </bean>-->
     
     <mvc:interceptors>
         <bean class="br.com.gsst.controller.AutorizadorInterceptor" />
     </mvc:interceptors>
-        
-<!--    <bean id="multipartResolver"
-                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-
-         setting maximum upload size 
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--setting maximum upload size-->
         <property name="maxUploadSize" value="100000000" />
-
-    </bean>-->
-
+    </bean>
 
 </beans>

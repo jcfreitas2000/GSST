@@ -13,6 +13,7 @@
     <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> NR ${nr.getNumero()}
 </div>
 
+<input id="nr-num" type="hidden" value="${nr.getNumero()}">
 <h2>Norma Regulamentadora ${nr.getNumero()}</h2>
 <p>${nr.getDescricao()}</p>
 
