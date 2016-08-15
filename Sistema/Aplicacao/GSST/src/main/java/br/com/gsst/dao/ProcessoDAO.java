@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -73,7 +75,8 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                for (int i = 0; i < imagens.size(); i++) {
+                int i;
+                for (i = 0; i < imagens.size(); i++) {
                     if (!imagens.get(i).isEmpty()) {
 
                         String nomeArquivo = "" + (i + 1);
@@ -89,16 +92,18 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
                             stream.write(bytes);
                             stream.close();
                             //Caso arquivo 1, gera Thumbnail
-//                            if (i == 0) {
-//                                // Cria o arquivo no servidor
-//                                Thumbnails.of(serverFile)
-//                                        .size(480, 240)
-//                                        .crop(Positions.CENTER)
-//                                        .toFile(new File(dir.getAbsolutePath() + File.separator + "1t" + extensao.toLowerCase()));
-//                            }
+                            if (i == 0) {
+                                // Cria o arquivo no servidor
+                                Thumbnails.of(serverFile)
+                                        .size(480, 240)
+                                        .crop(Positions.CENTER)
+                                        .toFile(new File(dir.getAbsolutePath() + File.separator + "1t" + extensao.toLowerCase()));
+                            }
                         }
                     }
                 }
+
+                processo.setNumFotos(i);
             }
 
             s.getTransaction().commit();
@@ -111,8 +116,8 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             return false;
         }
     }
-    
-    public List<Processo> paginacaoProcessoByUnidade(int idUnidade, int porPagina, int pagina){
+
+    public List<Processo> paginacaoProcessoByUnidade(int idUnidade, int porPagina, int pagina) {
         Session s = this.getSession();
         List<Processo> processos = null;
 
@@ -135,5 +140,26 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
         }
 
         return processos;
+    }
+
+    public Processo getProcessoById(int id) {
+        Processo p = null;
+        Session s = this.getSession();
+
+        try {
+            s.beginTransaction();
+            Query q = s.createQuery(" from Processo where idProcesso = :id")
+                    .setInteger("id", id);
+            p = findOne(q);
+            Hibernate.initialize(p.getFuncionarioByIdRelator());
+            Hibernate.initialize(p.getFuncionarioByIdRespCorrecao());
+            Hibernate.initialize(p.getMaquina());
+            s.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            s.getTransaction().rollback();
+        }
+
+        return p;
     }
 }

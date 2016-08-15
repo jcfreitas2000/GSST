@@ -18,13 +18,13 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
         if (user == null) {
             if (uri.startsWith(url_absoluta + "/user/") ||uri.startsWith(url_absoluta + "/admin/")) {
-                response.sendRedirect(url_absoluta + "/");
+                response.sendRedirect(url_absoluta + "/entrar");
                 return false;
             }
         } else {
             if (uri.startsWith(url_absoluta + "/admin/")) {
                     if (user.getNivelAcesso()== null || !user.getNivelAcesso().equals("admin")) {
-                        response.sendRedirect(url_absoluta + "/");
+                        response.sendRedirect(url_absoluta + "/entrar");
                         return false;
                     }
                 }

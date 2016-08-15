@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -209,5 +210,12 @@ public class ProcessosController {
     @RequestMapping("user/processos/salvar-maquina")
     public String salvarMaquina() {
         return "redirect:/user/processos/";
+    }
+    
+    @RequestMapping("user/processos/visualizar/{id}")
+    public String visualizar(@PathVariable("id") int id, Model model){
+        model.addAttribute("p", new ProcessoDAO().getProcessoById(id));
+        
+        return "processo/visualizar";
     }
 }

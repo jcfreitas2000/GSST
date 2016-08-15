@@ -16,19 +16,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
     Autor: José Carlos de Freitas
     Data: 11/07/2016, 12:12:38
     Arquivo: LoginController
-*/
-
+ */
 @Controller
 public class LoginController {
-    
-    @RequestMapping(value = {"entrar", ""})
-    public String login(){
+
+    @RequestMapping("entrar")
+    public String login(HttpSession session) {
+        if ((Usuario) session.getAttribute("usuarioLogado") != null) {
+            return "redirect:user/index";
+        }
+
         return "login";
     }
-    
+
     @RequestMapping("login")
     public String login(@Valid Usuario usuario, BindingResult result, HttpSession session, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
-        
+
         if (result.hasFieldErrors("funcionario") || result.hasFieldErrors("senha")) { //VALIDAÇÃO DOS INPUTS NO LOGIN
             //Seta o email da última tentativa
             redirectAttributes.addFlashAttribute("email", usuario.getFuncionario().getEmail());

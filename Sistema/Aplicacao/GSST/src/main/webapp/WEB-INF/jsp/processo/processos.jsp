@@ -10,6 +10,7 @@
         <title>GSST - Segurança é vida</title>
 
         <%@include file="/WEB-INF/jsp/estrutura/importMetaCss.jsp" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </head>
     <body>
         <div class="wraper">
@@ -20,20 +21,36 @@
             <div class="conteudo">
 
                 <h2>Processos</h2>
-
                 <div class="row">
-                    <c:forEach items="${processos}" var="p">
-                        <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="box">
-                                ${p.idProcesso}<br>
-                                Localização: ${p.localizacao}<br>
-                                Setor: ${p.setor}<br>
-                                Medida Corretiva: ${p.medidaCorretiva}<br>
-                                Relatado em: ${p.data}<br>
-                                Prazo: ${p.prazo}
+                    <c:choose>
+                        <c:when test="${processos == null}">
+                            <div class="col-xs-12">
+                                <div class="alert alert-warning">
+                                    <h4>Não há processos</h4>
+                                    Não há processos cadastrados.
+                                </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${processos}" var="p">
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                    <a href="visualizar/${p.idProcesso}">
+                                        <div class="box">
+                                            <c:if test="${p.numFotos > 0}">
+                                                <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
+                                            </c:if>
+                                            ${p.idProcesso}<br>
+                                            Localização: ${p.localizacao}<br>
+                                            Setor: ${p.setor}<br>
+                                            Medida Corretiva: ${p.medidaCorretiva}<br>
+                                            Relatado em: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
+                                            Prazo: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
+                                        </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <div class="text-right">
