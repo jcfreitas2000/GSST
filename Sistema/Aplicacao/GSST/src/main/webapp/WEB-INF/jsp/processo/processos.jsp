@@ -40,11 +40,13 @@
                                                 <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
                                             </c:if>
                                             ${p.idProcesso}<br>
-                                            Localização: ${p.localizacao}<br>
+                                            Máquina: ${p.maquina.descricao} (${p.maquina.numPatrimonio})<br>
+                                            Localizada: ${p.localizacao}<br>
                                             Setor: ${p.setor}<br>
                                             Medida Corretiva: ${p.medidaCorretiva}<br>
-                                            Relatado em: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
-                                            Prazo: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
+                                            Relato por ${p.funcionarioByIdRelator.nome}
+                                            em <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
+                                            Reponsável pela correção: ${p.funcionarioByIdRespCorrecao.nome} até <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
                                         </div>
                                     </a>
                                 </div>
