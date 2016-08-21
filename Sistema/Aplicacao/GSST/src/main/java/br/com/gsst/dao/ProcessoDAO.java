@@ -126,7 +126,7 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             Query q = s.createQuery(" from Processo where maquina.unidade.idUnidade = :idUnidade")
                     .setInteger("idUnidade", idUnidade)
                     .setFirstResult(pagina * porPagina)
-                    .setMaxResults(10);
+                    .setMaxResults(porPagina);
             processos = findMany(q);
             for (Processo p : processos) {
                 Hibernate.initialize(p.getFuncionarioByIdRelator());
@@ -154,6 +154,24 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             Hibernate.initialize(p.getFuncionarioByIdRelator());
             Hibernate.initialize(p.getFuncionarioByIdRespCorrecao());
             Hibernate.initialize(p.getMaquina());
+            s.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            s.getTransaction().rollback();
+        }
+
+        return p;
+    }
+
+    public Long countByUnidade(int idUnidade) {
+        Long p = null;
+        Session s = this.getSession();
+
+        try {
+            s.beginTransaction();
+            Query q = s.createQuery("select count(*) from Processo where maquina.unidade.idUnidade = :idUnidade")
+                    .setInteger("idUnidade", idUnidade);
+            p = (Long) q.uniqueResult();
             s.getTransaction().commit();
         } catch (HibernateException e) {
             e.printStackTrace();

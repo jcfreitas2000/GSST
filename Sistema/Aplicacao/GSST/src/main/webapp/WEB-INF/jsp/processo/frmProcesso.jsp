@@ -93,7 +93,7 @@
                                     <form:label path="maquina.idMaquina">Selecione a máquina</form:label>
                                         <div class="input-group">
                                         <form:select path="maquina.idMaquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
-                                            <option value="${null}">Selecione uma máquina</option>
+                                            <option value="">-- Selecione uma máquina --</option>
                                             <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
                                         </form:select>
                                         <span class="input-group-btn">
@@ -161,7 +161,7 @@
                                 <div class="form-group">
                                     <form:label path="funcionarioByIdRespCorrecao.idFuncionario" for="funcionarioByIdRespCorrecao">Funcionário responsável</form:label>
                                     <form:select path="funcionarioByIdRespCorrecao.idFuncionario" id="funcionarioByIdRespCorrecao" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Selecione o funcionário responsável por corrigir esse processo.">
-                                        <option value="${null}">Selecione um funcionário</option>
+                                        <option value="${0}">-- Selecione um funcionário --</option>
                                         <form:options items="${funcionarios}" itemValue="idFuncionario" itemLabel="nome"/>
                                     </form:select>
                                     <form:errors path="funcionarioByIdRespCorrecao.idFuncionario" cssStyle="color:red"/>

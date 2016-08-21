@@ -21,6 +21,8 @@
             <div class="conteudo">
 
                 <h2>Processos</h2>
+
+                ${msgProcesso.getAlert()}
                 <div class="row">
                     <c:choose>
                         <c:when test="${processos == null}">
@@ -55,8 +57,35 @@
                     </c:choose>
                 </div>
 
-                <div class="text-right">
-                    <a href="novo" class="btn btn-primary">Novo processo</a>
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <c:if test="${num-2 > 1}">
+                            <a href="1" class="btn btn-default">1</a>
+                        </c:if>
+                        &nbsp;&nbsp;&nbsp;
+                        <c:if test="${num-2 > 0 && num-2 < count}">
+                            <a href="${num-2}" class="btn btn-default">${num-2}</a>
+                        </c:if>
+                        <c:if test="${num-1 > 0 && num-1 < count}">
+                            <a href="${num-1}" class="btn btn-default">${num-1}</a>
+                        </c:if>
+
+                        <a href="${num}" class="btn btn-primary">${num}</a>
+
+                        <c:if test="${num+1 > 0 && num+1 <= count}">
+                            <a href="${num+1}" class="btn btn-default">${num+1}</a>
+                        </c:if>
+                        <c:if test="${num+2 > 0 && num+2 <= count}">
+                            <a href="${num+2}" class="btn btn-default">${num+2}</a>
+                        </c:if>
+                        &nbsp;&nbsp;&nbsp;
+                        <c:if test="${num+2 <= count}">
+                            <a href="${count}" class="btn btn-default">${count}</a>
+                        </c:if>
+                    </div>
+                    <div class="pull-right">
+                        <a href="novo" class="btn btn-primary">Novo processo</a>
+                    </div>
                 </div>
             </div><!--Fim conteúdo-->
 

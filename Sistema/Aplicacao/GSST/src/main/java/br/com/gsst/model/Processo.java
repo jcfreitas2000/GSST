@@ -41,6 +41,7 @@ public class Processo implements java.io.Serializable {
     private Date data;
     private Date prazo;
     private int numFotos;
+    private String estado;
     private BigDecimal multa;
     private Set<Nr> nrs = new HashSet(0);
 
@@ -53,7 +54,7 @@ public class Processo implements java.io.Serializable {
         this.maquina = maquina;
     }
 
-    public Processo(int idProcesso, Funcionario funcionarioByIdRelator, Funcionario funcionarioByIdRespCorrecao, Maquina maquina, String localizacao, String setor, String medidaCorretiva, Date data, Date prazo, int numFotos, BigDecimal multa, Set nrs) {
+    public Processo(int idProcesso, Funcionario funcionarioByIdRelator, Funcionario funcionarioByIdRespCorrecao, Maquina maquina, String localizacao, String setor, String medidaCorretiva, Date data, Date prazo, int numFotos, String estado, BigDecimal multa, Set nrs) {
         this.idProcesso = idProcesso;
         this.funcionarioByIdRelator = funcionarioByIdRelator;
         this.funcionarioByIdRespCorrecao = funcionarioByIdRespCorrecao;
@@ -65,6 +66,7 @@ public class Processo implements java.io.Serializable {
         this.prazo = prazo;
         this.multa = multa;
         this.numFotos = numFotos;
+        this.estado = estado;
         this.nrs = nrs;
     }
 
@@ -156,7 +158,7 @@ public class Processo implements java.io.Serializable {
         this.prazo = prazo;
     }
 
-    @Column(name = "num_fotos", precision = 10)
+    @Column(name = "num_fotos")
     public int getNumFotos() {
         return numFotos;
     }
@@ -165,6 +167,15 @@ public class Processo implements java.io.Serializable {
         this.numFotos = numFotos;
     }
 
+    @Column(name = "estado", precision = 10)
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     @Column(name = "multa", precision = 10)
     public BigDecimal getMulta() {
         return this.multa;

@@ -19,12 +19,14 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +42,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 //Para retornar UTF-8
 @RequestMapping(produces = {"application/json; charset=UTF-8", "*/*;charset=UTF-8"})
 public class ProcessosController {
+
+    int porPagina = 12;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat.setLenient(false);
+
+        // true passed to CustomDateEditor constructor means convert empty String to null
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 
     @ModelAttribute("maquina")
     public Maquina maquina() {
@@ -73,14 +86,24 @@ public class ProcessosController {
 
     @RequestMapping("user/processos/")
     public String processos(HttpSession session, Model model) {
-        model.addAttribute("processos", new ProcessoDAO().paginacaoProcessoByUnidade(((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade(), 12, 0));
+        ProcessoDAO processoDAO = new ProcessoDAO();
+        int idUnidade = ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade();
+
+        model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, 0));
+        model.addAttribute("num", 1);
+        model.addAttribute("count", Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
 
         return "processo/processos";
     }
 
     @RequestMapping("user/processos/{num}")
     public String processos(@PathVariable("num") int num, HttpSession session, Model model) {
-        model.addAttribute("processos", new ProcessoDAO().paginacaoProcessoByUnidade(((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade(), 12, num));
+        ProcessoDAO processoDAO = new ProcessoDAO();
+        int idUnidade = ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade();
+
+        model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, num - 1));
+        model.addAttribute("num", num);
+        model.addAttribute("count", Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
 
         return "processo/processos";
     }
@@ -108,17 +131,21 @@ public class ProcessosController {
     }
 
     @RequestMapping("user/processos/salvar-processo")
-    public String salvarProcesso(@RequestParam("arrayNrs") String nrs, @ModelAttribute("processos") @Valid Processo processo, @RequestParam("imagens") List<MultipartFile> imagens, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String salvarProcesso(@RequestParam("arrayNrs") String nrs, @RequestParam("imagens") List<MultipartFile> imagens, @ModelAttribute("processos") @Valid Processo processo, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
         Usuario user = (Usuario) session.getAttribute("usuarioLogado");
         processo.setFuncionarioByIdRelator(user.getFuncionario());
         processo.setData(new Date());
+        processo.setEstado("aberto");
+        if(processo.getFuncionarioByIdRespCorrecao().getIdFuncionario() == 0){
+            processo.setFuncionarioByIdRespCorrecao(null);
+        }
 
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("processo", processo);
             //Seta erros para redirect
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.processo", result);
 
-            return "redirect:/user/processos/";
+            return "redirect:/user/processos/novo";
         }
 
         JSONArray arrayNrs = new JSONArray(nrs);
@@ -211,11 +238,11 @@ public class ProcessosController {
     public String salvarMaquina() {
         return "redirect:/user/processos/";
     }
-    
+
     @RequestMapping("user/processos/visualizar/{id}")
-    public String visualizar(@PathVariable("id") int id, Model model){
+    public String visualizar(@PathVariable("id") int id, Model model) {
         model.addAttribute("p", new ProcessoDAO().getProcessoById(id));
-        
+
         return "processo/visualizar";
     }
 }
