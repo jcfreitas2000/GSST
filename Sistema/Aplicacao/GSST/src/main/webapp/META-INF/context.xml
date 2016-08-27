@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/GSST"><!--  Caminho do Diretório onde serão armazenadas as imagens 
     // EDITAR AQUI EM VALUE O CAMINHO ABSOLUTO PARA ARMAZENAMENTO DAS IMAGENS DO SISTEMA --> 
-    <Environment name="imagens" value="D:\José Carlos\Documentos\Git\GSST\GSST\Sistema\Aplicacao\imagens\" type="java.lang.String" /> 
+    <Environment name="imagens" value="C:\Users\jcfre\Documents\GitHub\GSST\Sistema\Aplicacao\imagens\" type="java.lang.String" /> 
 </Context>
