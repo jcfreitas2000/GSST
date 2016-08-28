@@ -136,7 +136,7 @@ public class ProcessosController {
         processo.setFuncionarioByIdRelator(user.getFuncionario());
         processo.setData(new Date());
         processo.setEstado("aberto");
-        if(processo.getFuncionarioByIdRespCorrecao().getIdFuncionario() == 0){
+        if (processo.getFuncionarioByIdRespCorrecao().getIdFuncionario() == 0) {
             processo.setFuncionarioByIdRespCorrecao(null);
         }
 
@@ -235,8 +235,31 @@ public class ProcessosController {
     }
 
     @RequestMapping("user/processos/salvar-maquina")
-    public String salvarMaquina() {
-        return "redirect:/user/processos/";
+    public String salvarMaquina(@ModelAttribute("maquina") @Valid Maquina maquina, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
+        maquina.setUnidade(((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade());
+        
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("maquina", maquina);
+            //Seta erros para redirect
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.maquina", result);
+
+            return "redirect:/user/processos/novo#adicionarMaquina";
+        }
+        
+        MaquinaDAO maquinaDAO = new MaquinaDAO();
+
+        if (maquina.getIdMaquina() > 0) { // Atualiza
+            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Não é possível atualizar máquina"));
+        } else //Cadastra novo
+        {
+            if (maquinaDAO.salvar(maquina)) {
+                redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Cadastrado!", "Sucesso no cadastro da máquina " + maquina.getDescricao() + " (" + maquina.getNumPatrimonio() + ")."));
+            } else {
+                redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro ao cadastrar!", "Erro ao cadastrar a máquina."));
+            }
+        }
+
+        return "redirect:/user/processos/novo";
     }
 
     @RequestMapping("user/processos/visualizar/{id}")

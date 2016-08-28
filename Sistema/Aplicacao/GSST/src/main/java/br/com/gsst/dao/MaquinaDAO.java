@@ -49,4 +49,22 @@ public class MaquinaDAO extends GenericDAO<Maquina, BigDecimal>{
 
         return maquinas;
     }
+    
+    public boolean salvar(Maquina maquina) {
+        Session s = this.getSession();
+
+        try {
+            s.beginTransaction();
+            this.save(maquina);
+
+            s.getTransaction().commit();
+
+            return true;
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            e.printStackTrace();
+
+            return false;
+        }
+    }
 }

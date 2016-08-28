@@ -12,8 +12,7 @@
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         <%@include file="/WEB-INF/jsp/estrutura/importMetaCss.jsp" %>
-        <link href="<%=request.getContextPath()%>/resources/plugins/slick-1.6.0/slick-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="<%=request.getContextPath()%>/resources/plugins/slick-1.6.0/slick.css" rel="stylesheet" type="text/css"/>
+        <link href="<%=request.getContextPath()%>/resources/plugins/FlexSlider-2.6.2/flexslider.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="wraper">
@@ -29,19 +28,52 @@
                         Processo ${p.idProcesso}
                     </div>
 
-                    Localização: ${p.localizacao}<br>
-                    Setor: ${p.setor}<br>
-                    Medida Corretiva: ${p.medidaCorretiva}<br>
-                    Relatado em: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
-                    Prazo: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
-
-                    <div id="largura">
-                        <div class="carrosel">
-                            <c:forEach begin="1" end="${p.numFotos}" var="i">
-                                <img class="imagem" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=${i}" />
-                            </c:forEach>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <b>Máquina:</b> ${p.maquina.descricao} (${p.maquina.numPatrimonio})
                         </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <b>Localizada:</b> ${p.localizacao}
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <b>Setor:</b> ${p.setor}
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <b>Medida Corretiva:</b> ${p.medidaCorretiva}
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <b>Relatado por:</b> ${p.funcionarioByIdRelator.nome}
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <b>Relatado em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" />
+                        </div>
+                        <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <b>Reponsável pela correção:</b> ${p.funcionarioByIdRespCorrecao.nome}
+                            </div>
+                        </c:if>
+                        <c:if test="${p.prazo != null}">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <b>Meta de correção:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
+                            </div>
+                        </c:if>
                     </div>
+
+                    <c:if test="${p.numFotos > 0}">
+                        <div class="margin-top clearfix">
+                            <div class="col-xs-offset-1 col-xs-10">
+                                <div class="flexslider">
+                                    <ul class="slides">
+                                        <c:forEach begin="1" end="${p.numFotos}" var="i">
+                                            <li>
+                                                <img src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=${i}" />
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div><!--Fim conteúdo-->
 
@@ -50,22 +82,15 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/plugins/slick-1.6.0/slick.js" type="text/javascript"></script>
-        <script src="<%=request.getContextPath()%>/resources/js/responsiveSlick.js" type="text/javascript"></script>
+        <script src="<%=request.getContextPath()%>/resources/plugins/FlexSlider-2.6.2/jquery.flexslider-min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
-                $('.carrosel').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    fade: true,
-                    arrows: true,
-                    accessibility: true,
-                    adaptiveHeight: true,
-                    centerMode: true,
-                    mobileFirst: true,
-                    cssEase: 'linear'
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    direction: "horizontal",
+                    smoothHeight: true,
+                    animationSpeed: 1
                 });
             });
         </script>

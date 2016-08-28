@@ -20,10 +20,22 @@
             <!--Conteúdo-->
             <div class="conteudo">
 
-                <h2>Processos</h2>
+                <h2>
+                    Processos
+                    <small>
+                        <span class="fa fa-search" aria-hidden="true"></span> Filtrar
+                    </small>
+                </h2>
 
                 ${msgProcesso.getAlert()}
-                <div class="row">
+
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a href="novo" class="btn btn-primary"><span class="fa fa-plus" aria-hidden="true"></span> Novo processo</a>
+                    </div>
+                </div>
+
+                <div class="row margin-top">
                     <c:choose>
                         <c:when test="${processos == null}">
                             <div class="col-xs-12">
@@ -37,7 +49,7 @@
                             <c:forEach items="${processos}" var="p">
                                 <div class="col-xs-12 col-sm-6 col-md-4">
                                     <a href="visualizar/${p.idProcesso}">
-                                        <div class="box padronizar-box">
+                                        <div class="box box-padronizar">
                                             <c:if test="${p.numFotos > 0}">
                                                 <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
                                             </c:if>
@@ -46,7 +58,7 @@
                                             Localizada: ${p.localizacao}<br>
                                             Setor: ${p.setor}<br>
                                             Medida Corretiva: ${p.medidaCorretiva}<br>
-                                            Relato por ${p.funcionarioByIdRelator.nome}
+                                            Relatado por ${p.funcionarioByIdRelator.nome}
                                             em <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
                                             <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
                                                 Reponsável pela correção: ${p.funcionarioByIdRespCorrecao.nome}<br>
@@ -62,9 +74,8 @@
                     </c:choose>
                 </div>
 
-                <div class="clearfix">
+                <div class="clearfix text-center">
                     <c:if test="${msgProcesso == null}">
-                        <div class="pull-left">
                             <c:if test="${num-2 > 1}">
                                 <a href="1" class="btn btn-default">1</a>
                             </c:if>
@@ -88,11 +99,7 @@
                             <c:if test="${num+2 <= count}">
                                 <a href="${count}" class="btn btn-default">${count}</a>
                             </c:if>
-                        </div>
                     </c:if>
-                    <div class="pull-right">
-                        <a href="novo" class="btn btn-primary">Novo processo</a>
-                    </div>
                 </div>
             </div><!--Fim conteúdo-->
 

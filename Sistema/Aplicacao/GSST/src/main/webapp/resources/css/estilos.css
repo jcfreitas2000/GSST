@@ -323,63 +323,16 @@ a:focus, a:hover {
     margin: 0px 0px 20px;
 }
 
-.carrosel{
-    -webkit-box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.20) !important;
-    -moz-box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.20) !important;
-    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.20) !important;
-    border: solid !important;
-    border-color: #fff  !important;
-    border-radius: 10px;
-    border-width: 8px !important;
-    margin-bottom: 20px !important;
-}
-
 .imagem{
     border-radius: 10px !important;
     background-color: #e6e6e6  !important;
 }
 
-.slick-prev, .slick-next{
-    background-color: #2DAE33 !important;
-    border-radius: 50px;
+.margin-top{
+    margin-top: 15px;
 }
 
-.slick-prev:before, .slick-next:before {
-    font-family: "Glyphicons Halflings", "slick", sans-serif !important;
-    font-size: 11px !important;
-}
-
-.slick-prev:before { content: "\e257" !important;}
-.slick-next:before { content: "\e258" !important;}
-
-.slick-dots li button:before {
-    content: '██' !important;
-    color: #6595d7 !important;
-}
-
-.slick-dots{
-    bottom: -40px !important;
-}
-
-.slick-dots li{
-    margin-right: 0px !important;
-    margin-left: 0px !important;
-}
-
-.slick-next{
-    right: -20px  !important;
-}
-
-.slick-prev{
-    left: -20px !important;
-}
-
-.teste{
-    width: 24%;
-    display: inline-block
-}
-
-.padronizar-box{
+.box-padronizar{
     height: 250px; 
     overflow: auto;
 }

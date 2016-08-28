@@ -72,7 +72,7 @@
                         </div>
                         <div class="row text-center">
                             <input type="submit" class="btn btn-primary" value="Salvar" />
-                            <input id="btn-cancelar-maquina" type="button" class="btn btn-default" value="Cancelar" />
+                            <a href="#adicionarProcesso" id="btn-cancelar-maquina" type="button" class="btn btn-default">Cancelar</a>
                         </div>
                     </form:form>
                 </div>
@@ -97,9 +97,9 @@
                                             <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
                                         </form:select>
                                         <span class="input-group-btn">
-                                            <button id="btn-maquina" type="button" class="btn btn-primary">
+                                            <a href="#adicionarMaquina" id="btn-maquina" type="button" class="btn btn-primary">
                                                 <span class="fa fa-plus" aria-hidden="true"></span>
-                                            </button>
+                                            </a>
                                         </span>
                                     </div>
                                     <form:errors path="maquina.idMaquina" cssStyle="color:red"/>

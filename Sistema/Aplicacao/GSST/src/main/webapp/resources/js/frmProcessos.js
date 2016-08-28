@@ -15,6 +15,14 @@ $(document).ready(function () {
         minDate: 0
     });
 
+    if (window.location.hash == "#adicionarMaquina") {
+        $("#maquina").show();
+        $("#processo").hide();
+
+        $("#frmMaquina").trigger("reset");
+        $("#numPatrimonio").focus();
+    }
+
     //Pega o valor default do modal de nrs
     nr = $("#modal-nrs .modal-body:first").html();
 
