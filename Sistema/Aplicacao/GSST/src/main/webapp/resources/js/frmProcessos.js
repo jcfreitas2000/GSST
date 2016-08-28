@@ -7,7 +7,13 @@ var nr = null;
 var json = {};
 
 $(document).ready(function () {
-    $("#prazo").datepicker();
+    $("#prazo").datepicker({
+        beforeShowDay: $.datepicker.noWeekends,
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        dateFormat: "dd/mm/yy",
+        minDate: 0
+    });
 
     //Pega o valor default do modal de nrs
     nr = $("#modal-nrs .modal-body:first").html();

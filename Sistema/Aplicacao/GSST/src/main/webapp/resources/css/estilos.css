@@ -212,6 +212,11 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
     color: #fff;
 }
 
+#prazo{
+    cursor: pointer;
+    background-color: #fff;
+}
+
 /*Hover e Focus dos links da navbar*/
 .navbar-green .navbar-nav > li > a:hover, .navbar-green .navbar-nav > li > a:focus {
     color: #fff;
@@ -367,4 +372,79 @@ a:focus, a:hover {
 
 .slick-prev{
     left: -20px !important;
+}
+
+.teste{
+    width: 24%;
+    display: inline-block
+}
+
+.padronizar-box{
+    height: 250px; 
+    overflow: auto;
+}
+
+/*.row{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.row .item{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}*/
+
+/*--------------------------*/
+/*ALERTS*/
+/*--------------------------*/
+.alert {
+    border-radius: 3px;
+}
+.alert h4 {
+    font-weight: 600;
+}
+.alert .icon {
+    margin-right: 10px;
+}
+.alert .close {
+    color: #000;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+}
+.alert .close:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.alert a {
+    color: #fff;
+    text-decoration: underline;
+}
+.alert-success,
+.alert-danger,
+.alert-error,
+.alert-warning,
+.alert-info{
+    color: #fff !important;
+}
+.alert-danger,
+.alert-error{
+    background-color: #dd4b39 !important;
+    border-color: #d73925;
+}
+.alert-warning{
+    background-color: #f39c12 !important;
+    border-color: #e08e0b;
+}
+.alert-info{
+    background-color: #00c0ef !important;
+    border-color: #00acd6;
+}
+.alert-success{
+    background-color: #26942c !important;
+    border-color: #1d6e20;
 }

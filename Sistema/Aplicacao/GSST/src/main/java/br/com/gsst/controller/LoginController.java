@@ -38,7 +38,7 @@ public class LoginController {
             //Seta erros para redirect
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.usuario", result);
 
-            return "redirect:/";
+            return "redirect:/entrar";
         }
 
         UsuarioDAO dao = new UsuarioDAO();
@@ -51,14 +51,14 @@ public class LoginController {
                 //Seta o email da ultima tentativa
                 redirectAttributes.addFlashAttribute("email", usuario.getFuncionario().getEmail());
                 //Redireciona para a página anterior
-                return "redirect:/";
+                return "redirect:/entrar";
             } else { //LOGA O USUÁRIO
                 //Remove caso haja na sessao
                 session.removeAttribute("usuarioLogado");
                 //Seta a sessao do usuário
                 session.setAttribute("usuarioLogado", user);
                 //Redireciona para a página inicial
-                return "redirect:/user/";
+                return "redirect:/";
             }
         } else { //ERRO! LOGIN COM DADOS INCORRETOS
             //Seta o erro de login
@@ -66,7 +66,7 @@ public class LoginController {
             //Seta o email da ultima tentativa
             redirectAttributes.addFlashAttribute("email", usuario.getFuncionario().getEmail());
             //Redireciona para a página anterior
-            return "redirect:/";
+            return "redirect:/entrar";
         }
     }
 
@@ -76,6 +76,6 @@ public class LoginController {
         //Deleta a sessão
         session.invalidate();
         //Redireciona para a página anterior
-        return "redirect:/";
+        return "redirect:/entrar";
     }
 }

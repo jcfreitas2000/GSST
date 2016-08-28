@@ -51,7 +51,7 @@
 
                 <div id="maquina" style="display: none;" class="box">
                     <div class="box-title">
-                        Adicionar máquina
+                        Máquina
                     </div>
                     <form:form action="salvar-maquina" id="frmMaquina" commandName="maquina" method="POST">
                         <div class="row">
@@ -170,7 +170,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <form:label path="prazo" for="prazo">Prazo para correção</form:label>
-                                    <form:input id="prazo" type="date" path="prazo" cssClass="form-control" placeholder="Prazo para correção" data-toggle="tooltip" data-placement="bottom" title="Digite o prazo para correção do processo" />
+                                    <form:input id="prazo" type="text" path="prazo" cssClass="form-control" placeholder="Prazo para correção" data-toggle="tooltip" data-placement="bottom" title="Digite o prazo para correção do processo" readonly="true" />
                                     <form:errors path="prazo" cssStyle="color:red"/>
                                 </div>
                             </div>

@@ -27,7 +27,7 @@
             <!--Conteúdo-->
             <section class="container">
                 <div class="box box-center">
-                    ${mensagem.getMensagem()}
+                    ${mensagem.getAlert()}
                     <form action="login" method="POST">
                         <div class="form-group">
                             <label for="login">Login</label>

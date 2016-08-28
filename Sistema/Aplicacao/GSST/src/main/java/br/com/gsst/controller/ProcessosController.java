@@ -47,7 +47,7 @@ public class ProcessosController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
 
         // true passed to CustomDateEditor constructor means convert empty String to null
@@ -170,7 +170,7 @@ public class ProcessosController {
         ProcessoDAO processoDAO = new ProcessoDAO();
 
         if (processoDAO.salvar(processo, imagens)) {
-            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Sucesso!", "Sucesso no cadastro do processo."));
+            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Cadastrado!", "Sucesso no cadastro do processo."));
         } else {
             redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro ao cadastrar!", "Erro ao cadastrar o processo."));
         }
