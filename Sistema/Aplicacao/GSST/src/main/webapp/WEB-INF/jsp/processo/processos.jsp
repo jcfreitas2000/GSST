@@ -49,22 +49,24 @@
                                 <div class="col-xs-12 col-sm-6 col-md-4">
                                     <a href="visualizar/${p.idProcesso}">
                                         <div class="box box-padronizar">
-                                            <c:if test="${p.numFotos > 0}">
-                                                <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
-                                            </c:if>
-                                            Processo ${p.idProcesso}<br>
-                                            Máquina: ${p.maquina.descricao} (${p.maquina.numPatrimonio})<br>
-                                            Localizada: ${p.localizacao}<br>
-                                            Setor: ${p.setor}<br>
-                                            Medida Corretiva: ${p.medidaCorretiva}<br>
-                                            Relatado por ${p.funcionarioByIdRelator.nome}
-                                            em <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
-                                            <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
-                                                Reponsável pela correção: ${p.funcionarioByIdRespCorrecao.nome}<br>
-                                            </c:if>
-                                            <c:if test="${p.prazo != null}">
-                                                Meta de correção: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
-                                            </c:if>
+                                            <div class="box-hidden">
+                                                <c:if test="${p.numFotos > 0}">
+                                                    <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
+                                                </c:if>
+                                                Processo ${p.idProcesso}<br>
+                                                Máquina: ${p.maquina.descricao} (${p.maquina.numPatrimonio})<br>
+                                                Localizada: ${p.localizacao}<br>
+                                                Setor: ${p.setor}<br>
+                                                Medida Corretiva: ${p.medidaCorretiva}<br>
+                                                Relatado por ${p.funcionarioByIdRelator.nome}
+                                                em <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
+                                                <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
+                                                    Reponsável pela correção: ${p.funcionarioByIdRespCorrecao.nome}<br>
+                                                </c:if>
+                                                <c:if test="${p.prazo != null}">
+                                                    Meta de correção: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
+                                                </c:if>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>

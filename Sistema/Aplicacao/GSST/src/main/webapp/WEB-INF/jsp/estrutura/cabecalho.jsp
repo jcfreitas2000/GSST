@@ -40,15 +40,17 @@
                                     <span class="fa fa-industry" aria-hidden="true"></span> ${usuarioLogado.funcionario.unidade.nome}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a href="#"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
+                            <c:if test="${usuarioLogado.nivelAcesso == 'admin'}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="#"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
                         </div>
                         <div class="dropdown-menu-footer clearfix">
                             <div class="pull-left">
-                                <a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar dados</a>
+                                <a href="<%=request.getContextPath()%>/user/editar-dados/"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar dados</a>
                             </div>
                             <div class="pull-right">
                                 <a class="btn btn-primary" href="<%=request.getContextPath()%>/logoff">Logoff</a>

@@ -65,6 +65,13 @@ textarea{
     margin-bottom: 20px;
 }
 
+.box-separator{
+    border-bottom: 1px solid #ddd;
+    margin: 20px 0px 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
 p + .list-group, p + .box {
     margin-top: 20px;
 }
@@ -338,8 +345,13 @@ a:focus, a:hover {
 }
 
 .box-padronizar{
-    height: 250px; 
-    overflow: auto;
+    height: 250px;
+    overflow: hidden;
+}
+
+.box-hidden{
+    overflow: hidden;
+    height: 200px;
 }
 
 /*.row{

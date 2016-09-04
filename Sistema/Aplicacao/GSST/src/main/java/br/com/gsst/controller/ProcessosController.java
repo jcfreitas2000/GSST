@@ -251,11 +251,13 @@ public class ProcessosController {
         if (maquina.getIdMaquina() > 0) { // Atualiza
             redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Não é possível atualizar máquina"));
         } else //Cadastra novo
-         if (maquinaDAO.salvar(maquina)) {
+        {
+            if (maquinaDAO.salvar(maquina)) {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Cadastrado!", "Sucesso no cadastro da máquina " + maquina.getDescricao() + " (" + maquina.getNumPatrimonio() + ")."));
             } else {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro ao cadastrar!", "Erro ao cadastrar a máquina."));
             }
+        }
 
         return "redirect:/user/processos/novo";
     }

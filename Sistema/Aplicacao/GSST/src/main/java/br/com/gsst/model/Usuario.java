@@ -1,6 +1,7 @@
 package br.com.gsst.model;
 // Generated 22/07/2016 15:45:22 by Hibernate Tools 4.3.1
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +60,7 @@ public class Usuario implements java.io.Serializable {
         this.idFuncionario = idFuncionario;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @PrimaryKeyJoinColumn
     public Funcionario getFuncionario() {
         return this.funcionario;

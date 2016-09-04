@@ -14,15 +14,14 @@ import org.hibernate.Session;
  */
 public class UsuarioDAO extends GenericDAO<Usuario, BigDecimal> {
 
-    public Usuario getUsuarioByEmail(Usuario usuario) {
+    public Usuario getUsuarioById(int id) {
         Session s = this.getSession();
         Usuario user = null;
 
         try {
             s.beginTransaction();
-            Query q = s.createQuery(" from Usuario where funcionario.email = :email and senha = :senha");
-            q.setString("email", usuario.getFuncionario().getEmail());
-            q.setString("senha", usuario.getSenha());
+            Query q = s.createQuery(" from Usuario where idFuncionario = :id");
+            q.setInteger("id", id);
             user = findOne(q);
             if (user != null) {
                 Hibernate.initialize(user.getFuncionario().getUnidade());
@@ -34,5 +33,42 @@ public class UsuarioDAO extends GenericDAO<Usuario, BigDecimal> {
         }
 
         return user;
+    }
+
+    public Usuario getUsuarioByEmail(Usuario usuario) {
+        Session s = this.getSession();
+        Usuario user = null;
+
+        try {
+            s.beginTransaction();
+            Query q = s.createQuery(" from Usuario where funcionario.email = :email and senha = :senha");
+            q.setString("email", usuario.getFuncionario().getEmail());
+            q.setString("senha", usuario.getSenha());
+            user = findOne(q);
+            s.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            s.getTransaction().rollback();
+        }
+
+        return user;
+    }
+    
+    public boolean salvar(Usuario usuario){
+        Session s = this.getSession();
+
+        try {
+            s.beginTransaction();
+            this.save(usuario);
+
+            s.getTransaction().commit();
+
+            return true;
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            e.printStackTrace();
+
+            return false;
+        }
     }
 }
