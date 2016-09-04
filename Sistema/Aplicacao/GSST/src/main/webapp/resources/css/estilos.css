@@ -332,6 +332,11 @@ a:focus, a:hover {
     margin-top: 15px;
 }
 
+.slider{
+    max-width: 500px;
+    margin: auto;
+}
+
 .box-padronizar{
     height: 250px; 
     overflow: auto;

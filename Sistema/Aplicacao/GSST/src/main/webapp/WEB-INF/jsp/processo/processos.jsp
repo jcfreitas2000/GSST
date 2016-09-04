@@ -20,24 +20,23 @@
             <!--Conteúdo-->
             <div class="conteudo">
 
-                <h2>
-                    Processos
-                    <small>
-                        <span class="fa fa-search" aria-hidden="true"></span> Filtrar
-                    </small>
-                </h2>
+                <h2>Processos</h2>
 
-                ${msgProcesso.getAlert()}
 
                 <div class="clearfix">
+                    <div class="pull-left">
+                        <a href="#" class="btn btn-default"><span class="fa fa-search" aria-hidden="true"></span> Filtrar</a>
+                    </div>
                     <div class="pull-right">
                         <a href="novo" class="btn btn-primary"><span class="fa fa-plus" aria-hidden="true"></span> Novo processo</a>
                     </div>
                 </div>
 
+                ${msgProcesso.getAlert()}
+
                 <div class="row margin-top">
                     <c:choose>
-                        <c:when test="${processos == null}">
+                        <c:when test="${processos == '[]'}">
                             <div class="col-xs-12">
                                 <div class="alert alert-warning">
                                     <h4>Não há processos</h4>
@@ -75,30 +74,30 @@
                 </div>
 
                 <div class="clearfix text-center">
-                    <c:if test="${msgProcesso == null}">
-                            <c:if test="${num-2 > 1}">
-                                <a href="1" class="btn btn-default">1</a>
-                            </c:if>
-                            &nbsp;&nbsp;&nbsp;
-                            <c:if test="${num-2 > 0 && num-2 < count}">
-                                <a href="${num-2}" class="btn btn-default">${num-2}</a>
-                            </c:if>
-                            <c:if test="${num-1 > 0 && num-1 < count}">
-                                <a href="${num-1}" class="btn btn-default">${num-1}</a>
-                            </c:if>
+                    <c:if test="${processos != '[]'}">
+                        <c:if test="${num-2 > 1}">
+                            <a href="1" class="btn btn-default">1</a>
+                        </c:if>
+                        &nbsp;&nbsp;&nbsp;
+                        <c:if test="${num-2 > 0 && num-2 < count}">
+                            <a href="${num-2}" class="btn btn-default">${num-2}</a>
+                        </c:if>
+                        <c:if test="${num-1 > 0 && num-1 < count}">
+                            <a href="${num-1}" class="btn btn-default">${num-1}</a>
+                        </c:if>
 
-                            <a href="${num}" class="btn btn-primary">${num}</a>
+                        <a href="${num}" class="btn btn-primary">${num}</a>
 
-                            <c:if test="${num+1 > 0 && num+1 <= count}">
-                                <a href="${num+1}" class="btn btn-default">${num+1}</a>
-                            </c:if>
-                            <c:if test="${num+2 > 0 && num+2 <= count}">
-                                <a href="${num+2}" class="btn btn-default">${num+2}</a>
-                            </c:if>
-                            &nbsp;&nbsp;&nbsp;
-                            <c:if test="${num+2 <= count}">
-                                <a href="${count}" class="btn btn-default">${count}</a>
-                            </c:if>
+                        <c:if test="${num+1 > 0 && num+1 <= count}">
+                            <a href="${num+1}" class="btn btn-default">${num+1}</a>
+                        </c:if>
+                        <c:if test="${num+2 > 0 && num+2 <= count}">
+                            <a href="${num+2}" class="btn btn-default">${num+2}</a>
+                        </c:if>
+                        &nbsp;&nbsp;&nbsp;
+                        <c:if test="${num+2 < count}">
+                            <a href="${count}" class="btn btn-default">${count}</a>
+                        </c:if>
                     </c:if>
                 </div>
             </div><!--Fim conteúdo-->
@@ -108,5 +107,11 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
+        <script src="<%=request.getContextPath()%>/resources/plugins/niceScroll/jquery.nicescroll.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $(".box-padronizar").niceScroll({autohidemode: false, zindex: 999, cursorcolor: "#999", cursorwidth: 7});
+            });
+        </script>
     </body>
 </html>

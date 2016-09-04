@@ -61,7 +61,7 @@
 
                     <c:if test="${p.numFotos > 0}">
                         <div class="margin-top clearfix">
-                            <div class="col-xs-offset-1 col-xs-10">
+                            <div class="slider">
                                 <div class="flexslider">
                                     <ul class="slides">
                                         <c:forEach begin="1" end="${p.numFotos}" var="i">
@@ -87,10 +87,8 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.flexslider').flexslider({
-                    animation: "slide",
                     direction: "horizontal",
-                    smoothHeight: true,
-                    animationSpeed: 1
+                    itemMargin: 5
                 });
             });
         </script>

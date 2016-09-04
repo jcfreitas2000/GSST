@@ -91,7 +91,7 @@ public class ProcessosController {
 
         model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, 0));
         model.addAttribute("num", 1);
-        model.addAttribute("count", Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
+        model.addAttribute("count", (int) Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
 
         return "processo/processos";
     }
@@ -103,7 +103,7 @@ public class ProcessosController {
 
         model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, num - 1));
         model.addAttribute("num", num);
-        model.addAttribute("count", Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
+        model.addAttribute("count", (int) Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
 
         return "processo/processos";
     }
@@ -237,7 +237,7 @@ public class ProcessosController {
     @RequestMapping("user/processos/salvar-maquina")
     public String salvarMaquina(@ModelAttribute("maquina") @Valid Maquina maquina, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
         maquina.setUnidade(((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade());
-        
+
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("maquina", maquina);
             //Seta erros para redirect
@@ -245,19 +245,17 @@ public class ProcessosController {
 
             return "redirect:/user/processos/novo#adicionarMaquina";
         }
-        
+
         MaquinaDAO maquinaDAO = new MaquinaDAO();
 
         if (maquina.getIdMaquina() > 0) { // Atualiza
             redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Não é possível atualizar máquina"));
         } else //Cadastra novo
-        {
-            if (maquinaDAO.salvar(maquina)) {
+         if (maquinaDAO.salvar(maquina)) {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Cadastrado!", "Sucesso no cadastro da máquina " + maquina.getDescricao() + " (" + maquina.getNumPatrimonio() + ")."));
             } else {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro ao cadastrar!", "Erro ao cadastrar a máquina."));
             }
-        }
 
         return "redirect:/user/processos/novo";
     }
