@@ -43,7 +43,7 @@
                             <c:if test="${usuarioLogado.nivelAcesso == 'admin'}">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="#"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
+                                        <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
                                     </div>
                                 </div>
                             </c:if>

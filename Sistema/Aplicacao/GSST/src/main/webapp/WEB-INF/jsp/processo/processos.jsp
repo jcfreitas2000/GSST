@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GSST - Segurança é vida</title>
+        <title>GSST - Processos</title>
 
         <%@include file="/WEB-INF/jsp/estrutura/importMetaCss.jsp" %>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
