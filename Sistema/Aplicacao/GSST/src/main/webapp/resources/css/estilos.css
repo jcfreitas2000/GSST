@@ -174,8 +174,10 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
 
 .conteudo{
     max-width: 1200px;
+    width: 98%;
     padding: 10px 10px 100px;
     margin: auto;
+    overflow: hidden !important;
 }
 
 @media(min-width: 768px){
@@ -349,6 +351,18 @@ a:focus, a:hover {
     overflow: hidden;
 }
 
+.pendente a{
+    color: red;
+}
+
+.pendente{
+    color: red;
+}
+
+.resolvido{
+    color: #26942c;
+}
+
 .box-hidden{
     overflow: hidden;
     height: 200px;
@@ -417,4 +431,25 @@ a:focus, a:hover {
 .alert-success{
     background-color: #26942c !important;
     border-color: #1d6e20;
+}
+
+/*datatable*/
+.pagination > li > a, .pagination > li > span {
+    color: #26942c !important;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #26942c !important;
+    border-color: #1d6e20 !important;
+    color: #fff !important;
+}
+
+table tr.selected:hover td, table tr:hover td {
+    background-color: #26942c !important;
+    cursor: pointer !important;
+    color: white !important;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child::before{
+    background-color: #26942c !important;
 }

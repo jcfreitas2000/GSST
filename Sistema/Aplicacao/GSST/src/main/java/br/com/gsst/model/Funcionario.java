@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -76,8 +80,8 @@ public class Funcionario implements java.io.Serializable {
     }
 
     @Id
-
     @Column(name = "id_funcionario", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Colunas do tipo serial
     public int getIdFuncionario() {
         return this.idFuncionario;
     }

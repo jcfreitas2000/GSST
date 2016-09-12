@@ -135,7 +135,7 @@ public class ProcessosController {
         Usuario user = (Usuario) session.getAttribute("usuarioLogado");
         processo.setFuncionarioByIdRelator(user.getFuncionario());
         processo.setData(new Date());
-        processo.setEstado("aberto");
+        processo.setEstado("pendente");
         if (processo.getFuncionarioByIdRespCorrecao().getIdFuncionario() == 0) {
             processo.setFuncionarioByIdRespCorrecao(null);
         }

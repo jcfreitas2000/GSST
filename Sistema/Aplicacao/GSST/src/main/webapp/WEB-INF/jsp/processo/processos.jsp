@@ -22,7 +22,6 @@
 
                 <h2>Processos</h2>
 
-
                 <div class="clearfix">
                     <div class="pull-left">
                         <a href="#" class="btn btn-default"><span class="fa fa-search" aria-hidden="true"></span> Filtrar</a>
@@ -32,7 +31,9 @@
                     </div>
                 </div>
 
-                ${msgProcesso.getAlert()}
+                <div class="margin-top">
+                    ${msgProcesso.getAlert()}
+                </div>
 
                 <div class="row margin-top">
                     <c:choose>
@@ -46,7 +47,7 @@
                         </c:when>
                         <c:otherwise>
                             <c:forEach items="${processos}" var="p">
-                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="col-xs-12 col-sm-6 col-md-4 ${p.estado}">
                                     <a href="visualizar/${p.idProcesso}">
                                         <div class="box box-padronizar">
                                             <div class="box-hidden">

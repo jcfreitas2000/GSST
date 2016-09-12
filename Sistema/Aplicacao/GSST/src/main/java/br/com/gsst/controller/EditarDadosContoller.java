@@ -26,7 +26,7 @@ public class EditarDadosContoller {
     }
 
     @RequestMapping("user/editar-dados/salvar-usuario")
-    public String salvarUsuario(@RequestParam("nova-senha") String novaSenha, @RequestParam("confirmar-nova-senha") String confirmarNovaSenha, @ModelAttribute("maquina") @Valid Usuario usuario, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String salvarUsuario(@RequestParam("nova-senha") String novaSenha, @RequestParam("confirmar-nova-senha") String confirmarNovaSenha, @ModelAttribute("usuarioLogado") @Valid Usuario usuario, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Usuario user = usuarioDAO.getUsuarioById(((Usuario) session.getAttribute("usuarioLogado")).getIdFuncionario());
 

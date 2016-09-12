@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.hibernate.Hibernate;
@@ -153,6 +150,7 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             p = findOne(q);
             Hibernate.initialize(p.getFuncionarioByIdRelator());
             Hibernate.initialize(p.getFuncionarioByIdRespCorrecao());
+            Hibernate.initialize(p.getNrs());
             Hibernate.initialize(p.getMaquina());
             s.getTransaction().commit();
         } catch (HibernateException e) {

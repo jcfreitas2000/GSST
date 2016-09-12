@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -191,6 +192,7 @@ public class Processo implements java.io.Serializable {
     @JoinTable(name = "processo_nr", schema = "public", joinColumns = {
         @JoinColumn(name = "id_processo", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "id_nr", nullable = false, updatable = false)})
+    @OrderBy("idNr")
     public Set<Nr> getNrs() {
         return this.nrs;
     }

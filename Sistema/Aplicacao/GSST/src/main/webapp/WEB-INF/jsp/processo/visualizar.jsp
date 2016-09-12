@@ -23,9 +23,12 @@
             <div class="conteudo">
 
                 <h2>Processos</h2>
-                <div class="box">
+                <div class="box clearfix">
                     <div class="box-title">
                         Processo ${p.idProcesso}
+                        <div class="pull-right ${p.estado}">
+                            <b>${p.estado.toUpperCase()}</b>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -58,6 +61,20 @@
                             </div>
                         </c:if>
                     </div>
+
+                    <div class="box-separator">
+                        Normas em não conformidade
+                    </div>
+
+                    <ul class="list-group">
+                        <c:forEach var="aux" items="${p.getNrs()}">
+                            <a href="#">
+                                <li class="list-group-item">
+                                    Norma Regulamentadora Nº ${aux.getNumero()} - ${aux.getDescricao()}
+                                </li>
+                            </a>
+                        </c:forEach>
+                    </ul>
 
                     <c:if test="${p.numFotos > 0}">
                         <div class="margin-top clearfix">

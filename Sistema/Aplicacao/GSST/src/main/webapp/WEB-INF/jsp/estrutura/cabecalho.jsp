@@ -22,7 +22,6 @@
             <ul class="nav navbar-nav">
                 <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/processos/">Processos</a></li>
                 <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a></li>
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("ca") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/ca">Certificado de Aprovação</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"></a></li>
@@ -43,7 +42,7 @@
                             <c:if test="${usuarioLogado.nivelAcesso == 'admin'}">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
+                                        <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
                                     </div>
                                 </div>
                             </c:if>
