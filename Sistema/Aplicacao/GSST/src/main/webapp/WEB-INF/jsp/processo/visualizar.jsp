@@ -23,6 +23,19 @@
             <div class="conteudo">
 
                 <h2>Processos</h2>
+
+                <c:if test="${p.estado.equals('pendente')}">
+                    <div class="clearfix">
+                        <div class="pull-right">
+                            <a href="#" class="btn btn-primary"><span class="fa fa-check" aria-hidden="true"></span> Resolver processo</a>
+                        </div>
+                    </div>
+                </c:if>
+                
+                <div>
+                    ${msgProcesso.getAlert()}
+                </div>
+
                 <div class="box clearfix">
                     <div class="box-title">
                         Processo ${p.idProcesso}

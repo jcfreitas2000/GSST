@@ -31,11 +31,11 @@
                     </div>
                 </div>
 
-                <div class="margin-top">
+                <div>
                     ${msgProcesso.getAlert()}
                 </div>
 
-                <div class="row margin-top">
+                <div class="row">
                     <c:choose>
                         <c:when test="${processos == '[]'}">
                             <div class="col-xs-12">

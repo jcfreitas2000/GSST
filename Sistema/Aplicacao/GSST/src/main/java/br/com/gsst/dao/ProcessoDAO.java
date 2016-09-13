@@ -120,7 +120,7 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
 
         try {
             s.beginTransaction();
-            Query q = s.createQuery(" from Processo where maquina.unidade.idUnidade = :idUnidade")
+            Query q = s.createQuery(" from Processo where maquina.unidade.idUnidade = :idUnidade order by estado, idProcesso DESC")
                     .setInteger("idUnidade", idUnidade)
                     .setFirstResult(pagina * porPagina)
                     .setMaxResults(porPagina);

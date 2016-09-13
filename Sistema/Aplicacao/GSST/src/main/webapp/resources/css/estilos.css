@@ -354,7 +354,7 @@ a:focus, a:hover {
     background-color: #e6e6e6  !important;
 }
 
-.margin-top{
+.conteudo > div, .margin-top{
     margin-top: 15px;
 }
 

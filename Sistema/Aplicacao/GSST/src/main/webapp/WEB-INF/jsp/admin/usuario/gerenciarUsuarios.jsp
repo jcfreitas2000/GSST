@@ -29,11 +29,11 @@
                     </div>
                 </div>
 
-                <div class="margin-top">
+                <div>
                     ${msgUsuario.getAlert()}
                 </div>
 
-                <div class="box margin-top">
+                <div class="box">
                     <table id="tableUsuarios" class="table table-striped table-bordered display responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                             <tr id="linha">
