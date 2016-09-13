@@ -50,23 +50,28 @@
                                 <div class="col-xs-12 col-sm-6 col-md-4 ${p.estado}">
                                     <a href="visualizar/${p.idProcesso}">
                                         <div class="box box-padronizar">
+                                            <span class="fa ${p.estado.equals('resolvido') ? 'fa fa-check-circle':'fa-exclamation-circle'}" aria-hidden="true"></span>
                                             <div class="box-hidden">
-                                                <c:if test="${p.numFotos > 0}">
-                                                    <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
-                                                </c:if>
-                                                Processo ${p.idProcesso}<br>
-                                                Máquina: ${p.maquina.descricao} (${p.maquina.numPatrimonio})<br>
-                                                Localizada: ${p.localizacao}<br>
-                                                Setor: ${p.setor}<br>
-                                                Medida Corretiva: ${p.medidaCorretiva}<br>
-                                                Relatado por ${p.funcionarioByIdRelator.nome}
-                                                em <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
-                                                <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
-                                                    Reponsável pela correção: ${p.funcionarioByIdRespCorrecao.nome}<br>
-                                                </c:if>
-                                                <c:if test="${p.prazo != null}">
-                                                    Meta de correção: <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
-                                                </c:if>
+                                                <h4 style="text-align: center;">Processo ${p.idProcesso}</h4>
+                                                <b>Máquina:</b> ${p.maquina.descricao} (${p.maquina.numPatrimonio})<br>
+                                                <c:choose>
+                                                    <c:when test="${p.numFotos > 0}">
+                                                        <img width="100%" src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=1&mod=t" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <b>Localizada:</b> ${p.localizacao}<br>
+                                                        <b>Setor:</b> ${p.setor}<br>
+                                                        <b>Medida Corretiva:</b> ${p.medidaCorretiva}<br>
+                                                        <b>Relatado por:</b> ${p.funcionarioByIdRelator.nome}<br>
+                                                        <b>Relatado em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /><br>
+                                                        <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
+                                                            <b>Resp. correção:</b> ${p.funcionarioByIdRespCorrecao.nome}<br>
+                                                        </c:if>
+                                                        <c:if test="${p.prazo != null}">
+                                                            <b>Meta de correção:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
+                                                        </c:if>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </div>
                                     </a>
@@ -76,32 +81,39 @@
                     </c:choose>
                 </div>
 
-                <div class="clearfix text-center">
-                    <c:if test="${processos != '[]'}">
-                        <c:if test="${num-2 > 1}">
-                            <a href="1" class="btn btn-default">1</a>
-                        </c:if>
-                        &nbsp;&nbsp;&nbsp;
-                        <c:if test="${num-2 > 0 && num-2 < count}">
-                            <a href="${num-2}" class="btn btn-default">${num-2}</a>
-                        </c:if>
-                        <c:if test="${num-1 > 0 && num-1 < count}">
-                            <a href="${num-1}" class="btn btn-default">${num-1}</a>
-                        </c:if>
+                <div class="clearfix">
+                    <div class="pull-left">
+                        Exibindo ${num*porPagina-porPagina+1}-${(num*porPagina) > total ? total : (num*porPagina)} de ${total} registros.
+                    </div>
+                    <div class="pull-right">
+                        <c:if test="${processos != '[]'}">
+                            <c:if test="${num-2 > 1}">
+                                <a href="1" class="btn btn-default">1</a>
+                            </c:if>
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="${num-1}" class="btn btn-default" ${num-1 > 0 && num-1 < count ? '' : 'disabled'}>Anterior</a>
+                            <c:if test="${num-2 > 0 && num-2 < count}">
+                                <a href="${num-2}" class="btn btn-default">${num-2}</a>
+                            </c:if>
+                            <c:if test="${num-1 > 0 && num-1 < count}">
+                                <a href="${num-1}" class="btn btn-default">${num-1}</a>
+                            </c:if>
 
-                        <a href="${num}" class="btn btn-primary">${num}</a>
+                            <a href="${num}" class="btn btn-primary">${num}</a>
 
-                        <c:if test="${num+1 > 0 && num+1 <= count}">
-                            <a href="${num+1}" class="btn btn-default">${num+1}</a>
+                            <c:if test="${num+1 > 0 && num+1 <= count}">
+                                <a href="${num+1}" class="btn btn-default">${num+1}</a>
+                            </c:if>
+                            <c:if test="${num+2 > 0 && num+2 <= count}">
+                                <a href="${num+2}" class="btn btn-default">${num+2}</a>
+                            </c:if>
+                            <a href="${num+1}" class="btn btn-default" ${num+1 > 0 && num+1 <= count ? "" : "disabled"}>Seguinte</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <c:if test="${num+2 < count}">
+                                <a href="${count}" class="btn btn-default">${count}</a>
+                            </c:if>
                         </c:if>
-                        <c:if test="${num+2 > 0 && num+2 <= count}">
-                            <a href="${num+2}" class="btn btn-default">${num+2}</a>
-                        </c:if>
-                        &nbsp;&nbsp;&nbsp;
-                        <c:if test="${num+2 < count}">
-                            <a href="${count}" class="btn btn-default">${count}</a>
-                        </c:if>
-                    </c:if>
+                    </div>
                 </div>
             </div><!--Fim conteúdo-->
 

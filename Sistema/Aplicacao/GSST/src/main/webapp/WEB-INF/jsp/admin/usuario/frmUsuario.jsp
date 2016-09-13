@@ -19,11 +19,25 @@
             <!--Conteúdo-->
             <div class="conteudo">
 
-                <h2>Adicionar novo usuário</h2>
+                <c:choose>
+                    <c:when test="${usuario.idFuncionario > 0}">
+                        <h2>Editar usuário</h2>
+                    </c:when>
+                    <c:otherwise>
+                        <h2>Adicionar novo usuário</h2>
+                    </c:otherwise>
+                </c:choose>
 
                 <div id="editar-dados" class="box">
                     <div class="box-title">
-                        Adicionar novo usuário
+                        <c:choose>
+                            <c:when test="${usuario.idFuncionario > 0}">
+                                Editar usuário - ${usuario.funcionario.nome}
+                            </c:when>
+                            <c:otherwise>
+                                Adicionar novo usuário
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <form:form action="salvar-usuario" id="frmUsuario" commandName="usuario" method="POST">
                         <div class="row">
@@ -71,8 +85,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <form:label path="funcionario.funcionario.idFuncionario" for="select-chefe">Selecione o chefe</form:label>
-                                    <form:select path="funcionario.funcionario.idFuncionario" id="select-chefe" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione o chefe desse funcionário">
-                                        <option value="">-- Selecione um chefe --</option>
+                                    <form:select path="funcionario.funcionario.idFuncionario" id="select-chefe" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="Selecione o chefe desse funcionário">
+                                        <form:option value="${0}" label="-- Selecione um chefe --"/>
                                         <form:options items="${funcionarios}" itemValue="idFuncionario" itemLabel="nome"/>
                                     </form:select>
                                     <form:errors path="funcionario.funcionario.idFuncionario" cssStyle="color:red"/>
@@ -80,11 +94,11 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <form:label path="nivelAcesso" for="nivel-acesso">Selecione o nível de acesso</form:label>
-                                    <form:select path="nivelAcesso" id="nivel-acesso" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione o nível de acesso do funcionário">
-                                        <option value="">-- Selecione um nível --</option>
-                                        <option value="admin">Administrador</option>
-                                        <option value="comum" selected="selected">Comum</option>
+                                    <form:label path="nivelAcesso" for="nivelAcesso">Selecione o nível de acesso</form:label>
+                                    <form:select path="nivelAcesso" id="nivelAcesso" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione o nível de acesso do funcionário">
+                                        <form:option value="${0}" label="-- Selecione um nível --"/>
+                                        <form:option value="admin" label="Administrador"/>
+                                        <form:option value="comum" label="Comum"/>
                                     </form:select>
                                     <form:errors path="nivelAcesso" cssStyle="color:red"/>
                                 </div>
@@ -92,11 +106,11 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <form:label path="ativo" for="ativo">Ativo</form:label>
-                                    <form:checkbox id="ativo" path="ativo" checked="checked" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="O usuário pode acessar o sistema?" />
+                                    <form:checkbox id="ativo" path="ativo" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="O usuário pode acessar o sistema?" />
                                 </div>
                             </div>
                         </div>
-                                <div class="box-separator">Endereço</div>
+                        <div class="box-separator">Endereço</div>
                         <div class="row">
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-group">

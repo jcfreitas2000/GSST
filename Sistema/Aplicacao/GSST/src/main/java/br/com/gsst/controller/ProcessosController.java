@@ -88,22 +88,38 @@ public class ProcessosController {
     public String processos(HttpSession session, Model model) {
         ProcessoDAO processoDAO = new ProcessoDAO();
         int idUnidade = ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade();
+        int total = processoDAO.countByUnidade(idUnidade);
 
         model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, 0));
         model.addAttribute("num", 1);
-        model.addAttribute("count", (int) Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
+        model.addAttribute("count", (int) Math.ceil(total / (double) this.porPagina));
+        
+        model.addAttribute("porPagina", this.porPagina);
+        model.addAttribute("total", total);
 
         return "processo/processos";
     }
 
     @RequestMapping("user/processos/{num}")
     public String processos(@PathVariable("num") int num, HttpSession session, Model model) {
+        if(num <= 0){
+            return "redirect:/user/processos/";
+        }
         ProcessoDAO processoDAO = new ProcessoDAO();
         int idUnidade = ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade();
+        int total = processoDAO.countByUnidade(idUnidade);
+        int count = (int) Math.ceil(total / (double) this.porPagina);
+        
+        if(num > count){
+            return "redirect:/user/processos/";
+        }
 
         model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, num - 1));
         model.addAttribute("num", num);
-        model.addAttribute("count", (int) Math.ceil(processoDAO.countByUnidade(idUnidade) / (double) this.porPagina));
+        model.addAttribute("count", count);
+        
+        model.addAttribute("porPagina", this.porPagina);
+        model.addAttribute("total", total);
 
         return "processo/processos";
     }

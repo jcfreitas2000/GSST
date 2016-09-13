@@ -27,6 +27,7 @@
                     <div class="box-title">
                         Processo ${p.idProcesso}
                         <div class="pull-right ${p.estado}">
+                            <span class="fa ${p.estado.equals('resolvido') ? 'fa fa-check-circle':'fa-exclamation-circle'}" aria-hidden="true"></span>
                             <b>${p.estado.toUpperCase()}</b>
                         </div>
                     </div>

@@ -131,7 +131,7 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
 }
 
 .red-list > span {
-    background-color: red;
+    background-color: #dd4b39;
     cursor: pointer;
 }
 
@@ -273,6 +273,11 @@ a:focus, a:hover {
     border-color: #1d6e20;
 }
 
+.btn-primary.disabled.focus, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary.focus[disabled], .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover {
+    background-color: #26942c;
+    border-color: #1d6e20;
+}
+
 .btn-primary:focus, .btn-primary:hover {
     background-color: #1d6e20;
     border-color: #1d6e20;
@@ -281,6 +286,18 @@ a:focus, a:hover {
 .btn-primary:active {
     background-color: #125114 !important;
     border-color: #1d6e20 !important;
+}
+
+.btn-default {
+    color: #1d6e20;
+}
+
+.btn-default:focus, .btn-default:hover {
+    color: #1d6e20;
+}
+
+.btn-default:active {
+    color: #1d6e20 !important;
 }
 
 .form-control:focus {
@@ -348,15 +365,45 @@ a:focus, a:hover {
 
 .box-padronizar{
     height: 250px;
-    overflow: hidden;
+}
+
+.box-padronizar .fa{
+    position: absolute;
+    top: 7px;
+    right: 24px;
+    font-size: 30px;
+}
+
+.box-padronizar img{
+    border: 3px solid #fff;
+}
+
+img {
+    border-radius: 2px;
 }
 
 .pendente a{
-    color: red;
+    color: #000;
+    text-decoration: none;
+}
+
+.pendente h4, .pendente .fa{
+    color: #dd4b39 !important;
+    font-weight: bold
 }
 
 .pendente{
-    color: red;
+    color: #dd4b39;
+}
+
+.resolvido a{
+    color: #000;
+    text-decoration: none;
+}
+
+.resolvido h4, .resolvido .fa{
+    color: #26942c !important;
+    font-weight: bold;
 }
 
 .resolvido{
@@ -366,6 +413,8 @@ a:focus, a:hover {
 .box-hidden{
     overflow: hidden;
     height: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /*.row{
@@ -445,11 +494,16 @@ a:focus, a:hover {
 }
 
 table tr.selected:hover td, table tr:hover td {
-    background-color: #26942c !important;
+    background-color: #ddd !important;
     cursor: pointer !important;
-    color: white !important;
+    color: #000 !important;
 }
 
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child::before{
     background-color: #26942c !important;
+}
+
+tr.selected {
+    background-color: #ddd !important;
+    color: #000;
 }

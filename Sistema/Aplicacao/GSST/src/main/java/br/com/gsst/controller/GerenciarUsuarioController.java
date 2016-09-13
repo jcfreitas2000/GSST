@@ -12,9 +12,13 @@ import javax.validation.Valid;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,7 +39,7 @@ public class GerenciarUsuarioController {
 
     @ModelAttribute("funcionarios")
     public List<Funcionario> funcionario(HttpSession session) {
-        return new FuncionarioDAO().getFuncionariosByUnidade(((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade());
+        return new FuncionarioDAO().getFuncionariosAdminsByUnidade(((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade());
     }
 
     @RequestMapping("admin/gerenciar-usuarios/")
@@ -54,6 +58,13 @@ public class GerenciarUsuarioController {
             json = new JSONObject();
 
             json.put("id", u.getIdFuncionario());
+            json.put("nivelAcesso", u.getNivelAcesso().toUpperCase());
+            if (u.isAtivo()) {
+                json.put("ativo", "<span class=\"fa fa-check\" aria-hidden=\"true\"></span>");
+
+            } else {
+                json.put("ativo", "<span class=\"fa fa-times\" aria-hidden=\"true\"></span>");
+            }
             json.put("cpf", u.getFuncionario().getCpf());
             json.put("nome", u.getFuncionario().getNome());
             json.put("funcao", u.getFuncionario().getFuncao());
@@ -70,7 +81,9 @@ public class GerenciarUsuarioController {
         }
 
         json = new JSONObject();
-        json.put("data", array);
+
+        json.put(
+                "data", array);
         System.out.println(json.toString());
         return json.toString();
     }
@@ -81,26 +94,32 @@ public class GerenciarUsuarioController {
     }
 
     @RequestMapping("admin/gerenciar-usuarios/salvar-usuario")
-    public String salvarUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String salvarUsuario(@ModelAttribute("usuario")
+            @Valid Usuario usuario, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Usuario user = usuarioDAO.getUsuarioById(((Usuario) session.getAttribute("usuarioLogado")).getIdFuncionario());
 
-        if (usuario.getIdFuncionario() > 0) {
-            Usuario u = usuarioDAO.getUsuarioById(((Usuario) session.getAttribute("usuarioLogado")).getIdFuncionario());
+        if (usuario.getFuncionario().getFuncionario().getIdFuncionario() == 0) {
+            usuario.getFuncionario().setFuncionario(null);
+        }
 
+        if (usuario.getIdFuncionario() > 0) {
+            Usuario u = usuarioDAO.getUsuarioById(usuario.getIdFuncionario());
+            usuario.setSenha(u.getSenha());
             usuario.getFuncionario().setIdFuncionario(u.getFuncionario().getIdFuncionario());
-            
-            if (user.getFuncionario().getUnidade().getIdUnidade() == u.getFuncionario().getUnidade().getIdUnidade()) {
+            usuario.getFuncionario().setUnidade(u.getFuncionario().getUnidade());
+
+            if (user.getFuncionario().getUnidade().getIdUnidade() != user.getFuncionario().getUnidade().getIdUnidade()) {
                 redirectAttributes.addFlashAttribute("msgUsuario", new Mensagem(true, "danger", "Erro!", "Não é possível editar dados de usuários de outra unidade."));
-                
-                return "redirect:/admin/gerenciar-usuarios/novo";
+
+                return "redirect:/admin/gerenciar-usuarios/";
             }
         } else {
             usuario.setSenha(this.geraSenha(8));
             usuario.getFuncionario().setUnidade(user.getFuncionario().getUnidade());
         }
 
-        if (result.hasErrors()) {
+        if (result.getErrorCount() > 1) {
             redirectAttributes.addFlashAttribute("usuario", usuario);
             //Seta erros para redirect
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.usuario", result);
@@ -108,7 +127,13 @@ public class GerenciarUsuarioController {
             return "redirect:/admin/gerenciar-usuarios/novo";
         }
 
-        if (usuarioDAO.salvar(usuario)) {
+        if (usuario.getIdFuncionario() > 0) {
+            if (usuarioDAO.salvar(usuario)) {
+                redirectAttributes.addFlashAttribute("msgUsuario", new Mensagem(true, "success", "Edição efetuada!", "Os dados de " + usuario.getFuncionario().getNome() + " foram alterados com sucesso!"));
+            } else {
+                redirectAttributes.addFlashAttribute("msgUsuario", new Mensagem(true, "danger", "Erro!", "Erro ao editar o usuário"));
+            }
+        } else if (usuarioDAO.salvar(usuario)) {
             redirectAttributes.addFlashAttribute("msgUsuario", new Mensagem(true, "success", "Cadastro efetuado!", "O cadastro de " + usuario.getFuncionario().getNome() + " foi efetuado com sucesso!"));
         } else {
             redirectAttributes.addFlashAttribute("msgUsuario", new Mensagem(true, "danger", "Erro!", "Erro ao salvar o usuário"));
@@ -116,7 +141,23 @@ public class GerenciarUsuarioController {
 
         return "redirect:/admin/gerenciar-usuarios/";
     }
-    
+
+    @RequestMapping(value = "admin/gerenciar-usuarios/editar-usuario", method = RequestMethod.GET)
+    public String editarUsuario(@RequestParam("id") int id, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario = usuarioDAO.getUsuarioById(id);
+
+        if (usuario.getFuncionario().getUnidade().getIdUnidade() != ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade()) {
+            redirectAttributes.addFlashAttribute("msgUsuario", new Mensagem(true, "danger", "Erro!", "Você nao pode editar usuários de outras unidades!"));
+
+            return "redirect:/admin/gerenciar-usuarios/";
+        }
+
+        model.addAttribute("usuario", usuario);
+
+        return "admin/usuario/frmUsuario";
+    }
+
     //Recebe uma senha aleatória do tamanho estipulado
     public static String geraSenha(int len) {
         char[] chart = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};

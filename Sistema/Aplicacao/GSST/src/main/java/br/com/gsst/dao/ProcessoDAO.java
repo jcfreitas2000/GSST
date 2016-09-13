@@ -161,7 +161,7 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
         return p;
     }
 
-    public Long countByUnidade(int idUnidade) {
+    public int countByUnidade(int idUnidade) {
         Long p = null;
         Session s = this.getSession();
 
@@ -176,6 +176,6 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             s.getTransaction().rollback();
         }
 
-        return p;
+        return p.intValue();
     }
 }

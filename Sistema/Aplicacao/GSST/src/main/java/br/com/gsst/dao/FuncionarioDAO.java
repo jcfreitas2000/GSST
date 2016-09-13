@@ -33,4 +33,22 @@ public class FuncionarioDAO extends GenericDAO<Funcionario, BigDecimal>{
 
         return funcionarios;
     }
+
+    public List<Funcionario> getFuncionariosAdminsByUnidade(int idUnidade){
+        Session s = this.getSession();
+        List<Funcionario> funcionarios = null;
+
+        try {
+            s.beginTransaction();
+            Query q = s.createQuery(" from Funcionario where unidade.idUnidade = :id and usuario.nivelAcesso like 'admin'")
+                    .setInteger("id", idUnidade);
+            funcionarios = findMany(q);
+            s.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            s.getTransaction().rollback();
+        }
+
+        return funcionarios;
+    }
 }

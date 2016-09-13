@@ -24,10 +24,15 @@
 
                 <div class="clearfix">
                     <div class="pull-right">
+                        <a id="editar-usuario" href="#" class="btn btn-primary" disabled="disabled"><span class="fa fa-pencil-square-o" aria-hidden="true"></span> Editar usuário</a>
                         <a href="novo" class="btn btn-primary"><span class="fa fa-plus" aria-hidden="true"></span> Novo usuário</a>
                     </div>
                 </div>
-                
+
+                <div class="margin-top">
+                    ${msgUsuario.getAlert()}
+                </div>
+
                 <div class="box margin-top">
                     <table id="tableUsuarios" class="table table-striped table-bordered display responsive nowrap" cellspacing="0" width="100%">
                         <thead>
@@ -35,6 +40,8 @@
                                 <th>ID</th>
                                 <th>CPF</th>
                                 <th>Nome</th>
+                                <th>Nível de Acesso</th>
+                                <th>Ativo</th>
                                 <th>Função</th>
                                 <th>Setor</th>
                                 <th>Chefe</th>
