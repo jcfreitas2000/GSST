@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.json.JSONArray;
@@ -93,7 +94,7 @@ public class ProcessosController {
         model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, 0));
         model.addAttribute("num", 1);
         model.addAttribute("count", (int) Math.ceil(total / (double) this.porPagina));
-        
+
         model.addAttribute("porPagina", this.porPagina);
         model.addAttribute("total", total);
 
@@ -102,26 +103,42 @@ public class ProcessosController {
 
     @RequestMapping("user/processos/{num}")
     public String processos(@PathVariable("num") int num, HttpSession session, Model model) {
-        if(num <= 0){
+        if (num <= 0) {
             return "redirect:/user/processos/";
         }
         ProcessoDAO processoDAO = new ProcessoDAO();
         int idUnidade = ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade();
         int total = processoDAO.countByUnidade(idUnidade);
         int count = (int) Math.ceil(total / (double) this.porPagina);
-        
-        if(num > count){
+
+        if (num > count) {
             return "redirect:/user/processos/";
         }
 
         model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, num - 1));
         model.addAttribute("num", num);
         model.addAttribute("count", count);
-        
+
         model.addAttribute("porPagina", this.porPagina);
         model.addAttribute("total", total);
 
         return "processo/processos";
+    }
+
+    @RequestMapping("user/processos/visualizar/{num}/resolver")
+    public String resolver(@PathVariable("num") int num, HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        Usuario user = (Usuario) session.getAttribute("usuarioLogado");
+        Processo p = new ProcessoDAO().getProcessoById(num);
+
+        if (user.getNivelAcesso().equals("admin")
+                || user.getIdFuncionario() == p.getFuncionarioByIdRelator().getIdFuncionario()
+                || user.getIdFuncionario() == p.getFuncionarioByIdRespCorrecao().getIdFuncionario()) {
+            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Processo resolvido!", "Processo resolvido com sucesso"));
+        } else {
+            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Você não tem permissão para resolver esse processo."));
+        }
+
+        return "redirect:/user/processos/visualizar/" + num + "/";
     }
 
     @RequestMapping("user/processos/novo")
@@ -267,18 +284,16 @@ public class ProcessosController {
         if (maquina.getIdMaquina() > 0) { // Atualiza
             redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Não é possível atualizar máquina"));
         } else //Cadastra novo
-        {
-            if (maquinaDAO.salvar(maquina)) {
+         if (maquinaDAO.salvar(maquina)) {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Cadastrado!", "Sucesso no cadastro da máquina " + maquina.getDescricao() + " (" + maquina.getNumPatrimonio() + ")."));
             } else {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro ao cadastrar!", "Erro ao cadastrar a máquina."));
             }
-        }
 
         return "redirect:/user/processos/novo";
     }
 
-    @RequestMapping("user/processos/visualizar/{id}")
+    @RequestMapping("user/processos/visualizar/{id}/")
     public String visualizar(@PathVariable("id") int id, Model model) {
         model.addAttribute("p", new ProcessoDAO().getProcessoById(id));
 

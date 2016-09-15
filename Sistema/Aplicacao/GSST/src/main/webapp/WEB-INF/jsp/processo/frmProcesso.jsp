@@ -13,12 +13,15 @@
     </head>
     <body>
         <!-- Modal para escolha de NRs -->
-        <div class="modal fade" id="modal-nrs" tabindex="-1" role="dialog" aria-labelledby="modal-nrs-label">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade modal-nrs" id="modal-nrs" tabindex="-1" role="dialog" aria-labelledby="modal-nrs-label">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modal-nrs-label">${nr == null ? "Normas Regulamentadoras" : "Norma Regulamentadora Nº  ".concat(nr.getNumero())}</h4>
+                        <h4 class="modal-title" id="modal-nrs-label">
+                            ${nr == null ? "Normas Regulamentadoras" : "Norma Regulamentadora Nº  ".concat(nr.getNumero())}
+                            <img id="loading-nr" src="<%=request.getContextPath()%>/resources/imagens/loading.gif" style="display: none;">
+                        </h4>
                     </div>
                     <div class="modal-body">
                         <ul class="list-group">

@@ -66,13 +66,16 @@ $(document).ready(function () {
 
 //Carrega uma nova Nr
 function ajaxNr(id) {
-    if (id in json) {
-        $("#adicionar-nr").hide();
-    } else {
-        $("#adicionar-nr").show();
-    }
+    $("#adicionar-nr").hide();
+    $("#loading-nr").show();
+
     $("#modal-nrs").modal("show");
-    $("#modal-nrs .modal-body:first").load("nr/" + id);
+    $("#modal-nrs .modal-body:first").load("nr/" + id, function () {
+        if (!(id in json)) {
+            $("#adicionar-nr").show();
+            $("#loading-nr").hide();
+        }
+    });
 }
 
 //Reseta para as principais Nrs

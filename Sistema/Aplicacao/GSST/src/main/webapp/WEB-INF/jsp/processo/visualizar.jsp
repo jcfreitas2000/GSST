@@ -15,6 +15,37 @@
         <link href="<%=request.getContextPath()%>/resources/plugins/FlexSlider-2.6.2/flexslider.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <!-- Modal para resolução de processos -->
+        <div class="modal fade" id="modal-nrs" tabindex="-1" role="dialog" aria-labelledby="modal-nrs-label">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modal-nrs-label">
+                            ${nr == null ? "Normas Regulamentadoras" : "Norma Regulamentadora Nº  ".concat(nr.getNumero())}
+                            <img id="loading-nr" src="<%=request.getContextPath()%>/resources/imagens/loading.gif" style="display: none;">
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <c:forEach var="nr" items="${nrs}">
+                                <a href="#" onclick="ajaxNr('${nr.getNumero().replace(".","-")}')">
+                                    <li class="list-group-item">
+                                        <span class="badge">${nr.getNrs().size()}</span>
+                                        Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
+                                    </li>
+                                </a>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button id="adicionar-nr" type="button" class="btn btn-primary" style="display: none;">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
         <div class="wraper">
             <!--Cabeçalho-->
             <%@include file="/WEB-INF/jsp/estrutura/cabecalho.jsp" %>
@@ -27,7 +58,7 @@
                 <c:if test="${p.estado.equals('pendente')}">
                     <div class="clearfix">
                         <div class="pull-right">
-                            <a href="#" class="btn btn-primary"><span class="fa fa-check" aria-hidden="true"></span> Resolver processo</a>
+                            <a href="resolver" class="btn btn-primary" ${usuarioLogado.nivelAcesso == 'admin' || usuarioLogado.idFuncionario == p.funcionarioByIdRelator.idFuncionario || usuarioLogado.idFuncionario == p.funcionarioByIdRespCorrecao.idFuncionario ? '' : 'disabled data-toggle="tooltip" data-placement="bottom" title="Apenas os reponsáveis pelo processo tem permissão para resolvê-lo"'}><span class="fa fa-check" aria-hidden="true"></span> Resolver processo</a>
                         </div>
                     </div>
                 </c:if>

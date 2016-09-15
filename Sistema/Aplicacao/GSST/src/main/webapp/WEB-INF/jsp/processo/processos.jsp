@@ -48,7 +48,7 @@
                         <c:otherwise>
                             <c:forEach items="${processos}" var="p">
                                 <div class="col-xs-12 col-sm-6 col-md-4 ${p.estado}">
-                                    <a href="visualizar/${p.idProcesso}">
+                                    <a href="visualizar/${p.idProcesso}/">
                                         <div class="box box-padronizar">
                                             <span class="fa ${p.estado.equals('resolvido') ? 'fa fa-check-circle':'fa-exclamation-circle'}" aria-hidden="true"></span>
                                             <div class="box-hidden">

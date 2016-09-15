@@ -340,9 +340,14 @@ a:focus, a:hover {
     margin-left: 5px;
 }
 
-.modal-body{
+.modal-title img{
+    width: 23px;
+}
+
+.modal-nrs .modal-body{
     overflow: auto;
-    height: 250px;
+    min-height: 100px;
+    height: 70vh;
 }
 
 .mapa{
