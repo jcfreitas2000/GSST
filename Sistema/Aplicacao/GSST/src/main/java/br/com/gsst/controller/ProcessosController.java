@@ -126,16 +126,33 @@ public class ProcessosController {
     }
 
     @RequestMapping("user/processos/visualizar/{num}/resolver")
-    public String resolver(@PathVariable("num") int num, HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        Usuario user = (Usuario) session.getAttribute("usuarioLogado");
-        Processo p = new ProcessoDAO().getProcessoById(num);
-
-        if (user.getNivelAcesso().equals("admin")
-                || user.getIdFuncionario() == p.getFuncionarioByIdRelator().getIdFuncionario()
-                || user.getIdFuncionario() == p.getFuncionarioByIdRespCorrecao().getIdFuncionario()) {
-            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Processo resolvido!", "Processo resolvido com sucesso"));
+    public String resolver(@PathVariable("num") int num, @RequestParam("resolucao") String resolucao, HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        resolucao = resolucao.trim();
+        
+        if (resolucao.isEmpty()) {
+            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Descrição inválida."));
         } else {
-            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Você não tem permissão para resolver esse processo."));
+            Usuario user = (Usuario) session.getAttribute("usuarioLogado");
+            
+            ProcessoDAO processoDAO = new ProcessoDAO();
+            Processo p = processoDAO.getProcessoById(num);
+
+            if (user.getNivelAcesso().equals("admin")
+                    || user.getIdFuncionario() == p.getFuncionarioByIdRelator().getIdFuncionario()
+                    || (p.getFuncionarioByIdRespCorrecao() != null && user.getIdFuncionario() == p.getFuncionarioByIdRespCorrecao().getIdFuncionario())) {
+                p.setResolucao(resolucao);
+                p.setDataResolucao(new Date());
+                p.setFuncionarioByIdResolucao(user.getFuncionario());
+                p.setEstado("resolvido");
+                
+                if(processoDAO.salvar(p)){
+                    redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Processo resolvido!", "Processo resolvido com sucesso."));
+                } else {
+                    redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Erro ao salvar processo."));
+                }
+            } else {
+                redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Você não tem permissão para resolver esse processo."));
+            }
         }
 
         return "redirect:/user/processos/visualizar/" + num + "/";
@@ -169,6 +186,7 @@ public class ProcessosController {
         processo.setFuncionarioByIdRelator(user.getFuncionario());
         processo.setData(new Date());
         processo.setEstado("pendente");
+        processo.setMedidaCorretiva(processo.getMedidaCorretiva().trim());
         if (processo.getFuncionarioByIdRespCorrecao().getIdFuncionario() == 0) {
             processo.setFuncionarioByIdRespCorrecao(null);
         }
@@ -284,11 +302,13 @@ public class ProcessosController {
         if (maquina.getIdMaquina() > 0) { // Atualiza
             redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro!", "Não é possível atualizar máquina"));
         } else //Cadastra novo
-         if (maquinaDAO.salvar(maquina)) {
+        {
+            if (maquinaDAO.salvar(maquina)) {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "success", "Cadastrado!", "Sucesso no cadastro da máquina " + maquina.getDescricao() + " (" + maquina.getNumPatrimonio() + ")."));
             } else {
                 redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "danger", "Erro ao cadastrar!", "Erro ao cadastrar a máquina."));
             }
+        }
 
         return "redirect:/user/processos/novo";
     }

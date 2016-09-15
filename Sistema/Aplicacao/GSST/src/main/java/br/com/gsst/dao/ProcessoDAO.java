@@ -113,6 +113,24 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             return false;
         }
     }
+    
+    public boolean salvar(Processo processo) {
+        Session s = this.getSession();
+
+        try {
+            s.beginTransaction();
+            this.save(processo);
+
+            s.getTransaction().commit();
+
+            return true;
+        } catch (Exception e) {
+            s.getTransaction().rollback();
+            e.printStackTrace();
+
+            return false;
+        }
+    }
 
     public List<Processo> paginacaoProcessoByUnidade(int idUnidade, int porPagina, int pagina) {
         Session s = this.getSession();

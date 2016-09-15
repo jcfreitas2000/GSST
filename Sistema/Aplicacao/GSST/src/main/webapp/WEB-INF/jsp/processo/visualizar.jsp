@@ -16,36 +16,40 @@
     </head>
     <body>
         <!-- Modal para resolução de processos -->
-        <div class="modal fade" id="modal-nrs" tabindex="-1" role="dialog" aria-labelledby="modal-nrs-label">
-            <div class="modal-dialog modal-lg" role="document">
+        <div class="modal fade" id="modal-resolucao" tabindex="-1" role="dialog" aria-labelledby="modal-nrs-label">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-nrs-label">
-                            ${nr == null ? "Normas Regulamentadoras" : "Norma Regulamentadora Nº  ".concat(nr.getNumero())}
-                            <img id="loading-nr" src="<%=request.getContextPath()%>/resources/imagens/loading.gif" style="display: none;">
+                            Resolver processo
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <ul class="list-group">
-                            <c:forEach var="nr" items="${nrs}">
-                                <a href="#" onclick="ajaxNr('${nr.getNumero().replace(".","-")}')">
-                                    <li class="list-group-item">
-                                        <span class="badge">${nr.getNrs().size()}</span>
-                                        Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
-                                    </li>
-                                </a>
-                            </c:forEach>
-                        </ul>
+                        <form id="frmResolucao" action="resolver" method="POST">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="resolucao">Descrição da resolução</label>
+                                        <textarea id="resolucao" name="resolucao" placeholder="Descrição da resolução" class="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Descreva os passos efetuados para resolução deste processo"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="alert alert-danger"><h4>ATENÇÃO</h4>A resolução do processo é irreversível.</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button id="adicionar-nr" type="button" class="btn btn-primary" style="display: none;">Adicionar</button>
+                        <button form="frmResolucao" type="submit" class="btn btn-primary">Resolver</button>
                     </div>
                 </div>
             </div>
         </div>
-                        
+
         <div class="wraper">
             <!--Cabeçalho-->
             <%@include file="/WEB-INF/jsp/estrutura/cabecalho.jsp" %>
@@ -58,11 +62,13 @@
                 <c:if test="${p.estado.equals('pendente')}">
                     <div class="clearfix">
                         <div class="pull-right">
-                            <a href="resolver" class="btn btn-primary" ${usuarioLogado.nivelAcesso == 'admin' || usuarioLogado.idFuncionario == p.funcionarioByIdRelator.idFuncionario || usuarioLogado.idFuncionario == p.funcionarioByIdRespCorrecao.idFuncionario ? '' : 'disabled data-toggle="tooltip" data-placement="bottom" title="Apenas os reponsáveis pelo processo tem permissão para resolvê-lo"'}><span class="fa fa-check" aria-hidden="true"></span> Resolver processo</a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-resolucao" ${usuarioLogado.nivelAcesso == 'admin' || usuarioLogado.idFuncionario == p.funcionarioByIdRelator.idFuncionario || usuarioLogado.idFuncionario == p.funcionarioByIdRespCorrecao.idFuncionario ? '' : 'disabled data-toggle="tooltip" data-placement="bottom" title="Apenas os reponsáveis pelo processo tem permissão para resolvê-lo"'}>
+                                <span class="fa fa-check" aria-hidden="true"></span> Resolver processo
+                            </button>
                         </div>
                     </div>
                 </c:if>
-                
+
                 <div>
                     ${msgProcesso.getAlert()}
                 </div>
@@ -77,35 +83,48 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-xs-12">
                             <b>Máquina:</b> ${p.maquina.descricao} (${p.maquina.numPatrimonio})
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
                             <b>Localizada:</b> ${p.localizacao}
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-sm-6 col-xs-12">
                             <b>Setor:</b> ${p.setor}
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <b>Medida Corretiva:</b> ${p.medidaCorretiva}
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
                             <b>Relatado por:</b> ${p.funcionarioByIdRelator.nome}
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-sm-6 col-xs-12">
                             <b>Relatado em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" />
                         </div>
+                    </div>
+                    <div class="row">
                         <c:if test="${p.funcionarioByIdRespCorrecao.nome != null}">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-sm-6 col-xs-12">
                                 <b>Reponsável pela correção:</b> ${p.funcionarioByIdRespCorrecao.nome}
                             </div>
                         </c:if>
                         <c:if test="${p.prazo != null}">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-sm-6 col-xs-12">
                                 <b>Meta de correção:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.prazo}" />
                             </div>
                         </c:if>
                     </div>
+                    <c:if test="${p.estado.equals('resolvido')}">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <b>Rosolvido por:</b> ${p.funcionarioByIdResolucao.nome}
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <b>Resolvido em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.dataResolucao}" />
+                            </div>
+                        </div>
+                    </c:if>
 
                     <div class="box-separator">
                         Normas em não conformidade
@@ -120,6 +139,14 @@
                             </a>
                         </c:forEach>
                     </ul>
+
+                    <div class="box-separator">Medida Corretiva</div>
+                    <p>${p.medidaCorretiva}</p>
+
+                    <c:if test="${p.estado.equals('resolvido')}">
+                        <div class="box-separator">Descrição da resolução</div>
+                        <p>${p.resolucao}</p>
+                    </c:if>
 
                     <c:if test="${p.numFotos > 0}">
                         <div class="margin-top clearfix">

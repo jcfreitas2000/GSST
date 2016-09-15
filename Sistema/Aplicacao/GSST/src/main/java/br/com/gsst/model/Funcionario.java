@@ -53,6 +53,10 @@ public class Funcionario implements java.io.Serializable {
     public Funcionario() {
     }
 
+    public Funcionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
+    
     public Funcionario(int idFuncionario, String nome, String funcao) {
         this.idFuncionario = idFuncionario;
         this.nome = nome;

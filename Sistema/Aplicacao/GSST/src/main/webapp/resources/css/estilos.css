@@ -397,7 +397,7 @@ img {
     font-weight: bold
 }
 
-.pendente{
+.pendente, .danger{
     color: #dd4b39;
 }
 

@@ -33,6 +33,7 @@ public class Processo implements java.io.Serializable {
     private int idProcesso;
     private Funcionario funcionarioByIdRelator;
     private Funcionario funcionarioByIdRespCorrecao;
+    private Funcionario funcionarioByIdResolucao;
     private Maquina maquina;
     @NotBlank(message = "{processo.localizacao.blank}")
     private String localizacao;
@@ -46,6 +47,8 @@ public class Processo implements java.io.Serializable {
     private int numFotos;
     private String estado;
     private BigDecimal multa;
+    private Date dataResolucao;
+    private String resolucao;
     private Set<Nr> nrs = new HashSet(0);
 
     public Processo() {
@@ -57,10 +60,11 @@ public class Processo implements java.io.Serializable {
         this.maquina = maquina;
     }
 
-    public Processo(int idProcesso, Funcionario funcionarioByIdRelator, Funcionario funcionarioByIdRespCorrecao, Maquina maquina, String localizacao, String setor, String medidaCorretiva, Date data, Date prazo, int numFotos, String estado, BigDecimal multa, Set nrs) {
+    public Processo(int idProcesso, Funcionario funcionarioByIdRelator, Funcionario funcionarioByIdRespCorrecao, Funcionario funcionarioByIdCorrecao, Maquina maquina, String localizacao, String setor, String medidaCorretiva, Date data, Date prazo, int numFotos, String estado, BigDecimal multa, Date dataResolucao, String resolucao, Set nrs) {
         this.idProcesso = idProcesso;
         this.funcionarioByIdRelator = funcionarioByIdRelator;
         this.funcionarioByIdRespCorrecao = funcionarioByIdRespCorrecao;
+        this.funcionarioByIdResolucao = funcionarioByIdRelator;
         this.maquina = maquina;
         this.localizacao = localizacao;
         this.setor = setor;
@@ -70,6 +74,8 @@ public class Processo implements java.io.Serializable {
         this.multa = multa;
         this.numFotos = numFotos;
         this.estado = estado;
+        this.dataResolucao = dataResolucao;
+        this.resolucao = resolucao;
         this.nrs = nrs;
     }
 
@@ -102,6 +108,16 @@ public class Processo implements java.io.Serializable {
 
     public void setFuncionarioByIdRespCorrecao(Funcionario funcionarioByIdRespCorrecao) {
         this.funcionarioByIdRespCorrecao = funcionarioByIdRespCorrecao;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_resolucao")
+    public Funcionario getFuncionarioByIdResolucao() {
+        return funcionarioByIdResolucao;
+    }
+
+    public void setFuncionarioByIdResolucao(Funcionario funcionarioByIdResolucao) {
+        this.funcionarioByIdResolucao = funcionarioByIdResolucao;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -178,7 +194,7 @@ public class Processo implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
     @Column(name = "multa", precision = 10)
     public BigDecimal getMulta() {
         return this.multa;
@@ -186,6 +202,25 @@ public class Processo implements java.io.Serializable {
 
     public void setMulta(BigDecimal multa) {
         this.multa = multa;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_resolucao", length = 13)
+    public Date getDataResolucao() {
+        return dataResolucao;
+    }
+
+    public void setDataResolucao(Date dataResolucao) {
+        this.dataResolucao = dataResolucao;
+    }
+
+    @Column(name = "resolucao")
+    public String getResolucao() {
+        return resolucao;
+    }
+
+    public void setResolucao(String resolucao) {
+        this.resolucao = resolucao;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

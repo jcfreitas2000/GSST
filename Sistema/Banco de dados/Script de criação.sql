@@ -101,11 +101,17 @@ CREATE TABLE processo(
 	multa decimal(10,2),
 	num_fotos int,
 	estado text,
+	data_resolucao date,
+	resolucao text,
 	id_relator int not null
 		REFERENCES funcionario (id_funcionario)
 		on delete cascade
 		on update cascade,
 	id_resp_correcao int
+		REFERENCES funcionario (id_funcionario)
+		on delete cascade
+		on update cascade,
+	id_resolucao int
 		REFERENCES funcionario (id_funcionario)
 		on delete cascade
 		on update cascade,
