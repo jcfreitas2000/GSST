@@ -3859,4 +3859,7 @@ INSERT INTO public.nr(numero, descricao, id_nr_item) VALUES ('36.16.7', 'As info
 
 --nr37
 
+--cria index para otimizar consultas
+CREATE INDEX IF NOT EXISTS index_numero_hash ON nr USING HASH (numero);
+
 COMMIT;

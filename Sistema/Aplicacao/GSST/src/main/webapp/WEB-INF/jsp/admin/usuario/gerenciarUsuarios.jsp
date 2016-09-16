@@ -25,7 +25,7 @@
                 <div class="clearfix">
                     <div class="pull-right">
                         <a id="editar-usuario" href="#" class="btn btn-primary" disabled="disabled"><span class="fa fa-pencil-square-o" aria-hidden="true"></span> Editar usuário</a>
-                        <a href="novo" class="btn btn-primary"><span class="fa fa-plus" aria-hidden="true"></span> Novo usuário</a>
+                        <a href="novo" class="btn btn-primary"><span class="fa fa-user-plus" aria-hidden="true"></span> Novo usuário</a>
                     </div>
                 </div>
 

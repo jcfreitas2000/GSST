@@ -40,7 +40,9 @@
                             <form:errors path="usuario.senha" cssStyle="color:red"/>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-logar" value="Logar" />
+                            <button type="submit" class="btn btn-primary btn-logar">
+                                <span class="fa fa-sign-in" aria-hidden="true"></span> Entrar
+                            </button>
                         </div>
                     </form>
                     <div class="text-right">

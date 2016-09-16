@@ -44,7 +44,7 @@ public class NrDAO extends GenericDAO<Nr, BigDecimal>{
 
         try {
             s.beginTransaction();
-            Query q = s.createQuery(" from Nr where numero like :num");
+            Query q = s.createQuery(" from Nr where numero = :num");
             q.setString("num", num);
             nr = findOne(q);
             s.getTransaction().commit();

@@ -131,21 +131,21 @@
                     </div>
 
                     <ul class="list-group">
-                        <c:forEach var="aux" items="${p.getNrs()}">
-                            <a href="#">
+                        <c:forEach var="nr" items="${p.getNrs()}">
+                            <a target="nr" href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
                                 <li class="list-group-item">
-                                    Norma Regulamentadora Nº ${aux.getNumero()} - ${aux.getDescricao()}
+                                    Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
                                 </li>
                             </a>
                         </c:forEach>
                     </ul>
 
                     <div class="box-separator">Medida Corretiva</div>
-                    <p>${p.medidaCorretiva}</p>
+                    <p>${p.medidaCorretiva.replaceAll('\\n','</p><p>')}</p>
 
                     <c:if test="${p.estado.equals('resolvido')}">
                         <div class="box-separator">Descrição da resolução</div>
-                        <p>${p.resolucao}</p>
+                        <p>${p.resolucao.replaceAll('\\n','</p><p>')}</p>
                     </c:if>
 
                     <c:if test="${p.numFotos > 0}">

@@ -52,7 +52,7 @@
                                 <a href="<%=request.getContextPath()%>/user/editar-dados/"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar dados</a>
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="<%=request.getContextPath()%>/logoff">Logoff</a>
+                                <a class="btn btn-primary" href="<%=request.getContextPath()%>/logoff"><span class="fa fa-sign-out" aria-hidden="true"></span> Sair</a>
                             </div>
                         </div>
                     </div>

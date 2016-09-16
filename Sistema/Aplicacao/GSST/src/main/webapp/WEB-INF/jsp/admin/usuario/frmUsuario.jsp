@@ -149,8 +149,10 @@
                             </div>
                         </div>
                         <div class="row text-center">
-                            <input type="submit" class="btn btn-primary" value="Salvar" />
-                            <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/" id="btn-cancelar-maquina" type="button" class="btn btn-default">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="fa fa-floppy-o" aria-hidden="true"></span> Salvar
+                            </button>
+                            <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/" id="btn-cancelar-maquina" type="button" class="btn btn-default"><span class="fa fa-times" aria-hidden="true"></span> Cancelar</a>
                         </div>
                     </form:form>
                 </div>

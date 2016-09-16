@@ -86,6 +86,10 @@ p + .list-group, p + .box {
     text-align: justify;
 }
 
+.list-group a{
+    text-decoration: none
+}
+
 .list-group-item{
     border-width: 0px;
 }
@@ -112,6 +116,7 @@ ol .list-group-item {
 .list-group-item{
     color: #555;
     background: #fff;
+    text-decoration:none;
 }
 
 a:nth-child(odd) .list-group-item, .red-list:nth-child(odd){
@@ -150,9 +155,17 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
     width: 100%;
 }
 
+.navbar .dropdown-menu{
+    width: 250px;
+}
+
+.conteudo .dropdown-menu{
+    width: 80vw;
+    max-width: 500px;
+}
+
 .dropdown-menu{
     padding: 0px;
-    width: 250px;
 }
 
 .dropdown-menu .dropdown-menu-body{
@@ -168,7 +181,7 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
     border-top: 1px solid #ddd;
 }
 
-.dropdown-menu .dropdown-menu-footer .pull-left {
+.navbar .dropdown-menu .dropdown-menu-footer .pull-left {
     margin-top: 7px;
 }
 
@@ -347,7 +360,7 @@ a:focus, a:hover {
 .modal-nrs .modal-body{
     overflow: auto;
     min-height: 100px;
-    height: 70vh;
+    max-height: 70vh;
 }
 
 .mapa{
@@ -420,6 +433,11 @@ img {
     height: 200px;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.pendente h4, .resolvido h4{
+     text-align: center;
+     border-bottom: 1px solid #ddd;
 }
 
 /*.row{

@@ -84,7 +84,7 @@ public class GerenciarUsuarioController {
 
         json.put(
                 "data", array);
-        System.out.println(json.toString());
+        
         return json.toString();
     }
 

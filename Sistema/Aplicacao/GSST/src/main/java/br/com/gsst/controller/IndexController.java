@@ -86,4 +86,9 @@ public class IndexController {
         }
         return null;
     }
+    
+    @RequestMapping("404")
+    public String erro404(){
+        return "404";
+    }
 }

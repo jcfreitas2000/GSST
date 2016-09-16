@@ -64,17 +64,28 @@ $(document).ready(function () {
     });
 });
 
+//Bloqueia várias requisições
+var blockNr = false;
+
 //Carrega uma nova Nr
 function ajaxNr(id) {
+    if (blockNr) {
+        return;
+    }
+    
+    blockNr = true;
+    
     $("#adicionar-nr").hide();
     $("#loading-nr").show();
 
     $("#modal-nrs").modal("show");
-    $("#modal-nrs .modal-body:first").load("nr/" + id, function () {
+    loadNr = $("#modal-nrs .modal-body:first").load("nr/" + id, function () {
         if (!(id in json)) {
             $("#adicionar-nr").show();
             $("#loading-nr").hide();
         }
+        
+        blockNr = false;
     });
 }
 
