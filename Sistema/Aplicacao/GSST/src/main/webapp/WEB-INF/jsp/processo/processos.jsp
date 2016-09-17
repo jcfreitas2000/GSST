@@ -98,45 +98,47 @@
                                                 <div class="box-separator">Datas</div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <form:label path="relatadoEmInicial" for="relatadoEmInicial">Relatado em (inicial)</form:label>
-                                                    <form:input id="relatadoEmInicial" type="text" path="relatadoEmInicial" cssClass="form-control" placeholder="Data inicial" data-toggle="tooltip" data-placement="bottom" title="Filtro para data inicial" readonly="true" />
+                                        <div id="datas">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <form:label path="relatadoEmInicial" for="relatadoEmInicial">Relatado em (inicial)</form:label>
+                                                        <form:input id="relatadoEmInicial" type="text" path="relatadoEmInicial" cssClass="form-control" placeholder="Data inicial" data-toggle="tooltip" data-placement="bottom" title="Filtro para data inicial" readonly="true" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <form:label path="relatadoEmFinal" for="relatadoEmFinal">Relatado em (final)</form:label>
+                                                        <form:input id="relatadoEmFinal" type="text" path="relatadoEmFinal" cssClass="form-control" placeholder="Data final" data-toggle="tooltip" data-placement="bottom" title="Filtro para data final" readonly="true" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <form:label path="relatadoEmFinal" for="relatadoEmFinal">Relatado em (final)</form:label>
-                                                    <form:input id="relatadoEmFinal" type="text" path="relatadoEmFinal" cssClass="form-control" placeholder="Data final" data-toggle="tooltip" data-placement="bottom" title="Filtro para data final" readonly="true" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <form:label path="prazoInicial" for="prazoInicial">Prazo (inicial)</form:label>
+                                                        <form:input id="prazoInicial" type="text" path="prazoInicial" cssClass="form-control" placeholder="Data inicial" data-toggle="tooltip" data-placement="bottom" title="Filtro para data inicial" readonly="true" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <form:label path="prazoFinal" for="prazoFinal">Prazo (final)</form:label>
+                                                        <form:input id="prazoFinal" type="text" path="prazoFinal" cssClass="form-control" placeholder="Data final" data-toggle="tooltip" data-placement="bottom" title="Filtro para data final" readonly="true" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <form:label path="prazoInicial" for="prazoInicial">Prazo (inicial)</form:label>
-                                                    <form:input id="prazoInicial" type="text" path="prazoInicial" cssClass="form-control" placeholder="Data inicial" data-toggle="tooltip" data-placement="bottom" title="Filtro para data inicial" readonly="true" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <form:label path="resolvidoEmInicial" for="resolvidoEmInicial">Resolvido em (inicial)</form:label>
+                                                        <form:input id="resolvidoEmInicial" type="text" path="resolvidoEmInicial" cssClass="form-control" placeholder="Data inicial" data-toggle="tooltip" data-placement="bottom" title="Filtro para data inicial" readonly="true" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <form:label path="prazoFinal" for="prazoFinal">Prazo (final)</form:label>
-                                                    <form:input id="prazoFinal" type="text" path="prazoFinal" cssClass="form-control" placeholder="Data final" data-toggle="tooltip" data-placement="bottom" title="Filtro para data final" readonly="true" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <form:label path="resolvidoEmInicial" for="resolvidoEmInicial">Resolvido em (inicial)</form:label>
-                                                    <form:input id="resolvidoEmInicial" type="text" path="resolvidoEmInicial" cssClass="form-control" placeholder="Data inicial" data-toggle="tooltip" data-placement="bottom" title="Filtro para data inicial" readonly="true" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <form:label path="resolvidoEmFinal" for="resolvidoEmFinal">Resolvido em (final)</form:label>
-                                                    <form:input id="resolvidoEmFinal" type="text" path="resolvidoEmFinal" cssClass="form-control" placeholder="Data final" data-toggle="tooltip" data-placement="bottom" title="Filtro para data final" readonly="true" />
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <form:label path="resolvidoEmFinal" for="resolvidoEmFinal">Resolvido em (final)</form:label>
+                                                        <form:input id="resolvidoEmFinal" type="text" path="resolvidoEmFinal" cssClass="form-control" placeholder="Data final" data-toggle="tooltip" data-placement="bottom" title="Filtro para data final" readonly="true" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,11 +252,6 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/plugins/niceScroll/jquery.nicescroll.js" type="text/javascript"></script>
-        <script>
-            $(document).ready(function () {
-                $(".box-padronizar").niceScroll({autohidemode: false, zindex: 999, cursorcolor: "#999", cursorwidth: 7});
-            });
-        </script>
+        <script src="<%=request.getContextPath()%>/resources/js/processos.js" type="text/javascript"></script>
     </body>
 </html>
