@@ -105,8 +105,12 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <form:label path="ativo" for="ativo">Ativo</form:label>
-                                    <form:checkbox id="ativo" path="ativo" cssClass="form-control" data-toggle="tooltip" data-placement="bottom" title="O usuário pode acessar o sistema?" />
+                                    <div class="checkbox">
+                                        <form:label path="ativo" for="ativo" data-toggle="tooltip" data-placement="bottom" title="O usuário pode acessar o sistema?">
+                                            <form:checkbox id="ativo" path="ativo" />
+                                            Ativo
+                                        </form:label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +156,9 @@
                             <button type="submit" class="btn btn-primary">
                                 <span class="fa fa-floppy-o" aria-hidden="true"></span> Salvar
                             </button>
-                            <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/" id="btn-cancelar-maquina" type="button" class="btn btn-default"><span class="fa fa-times" aria-hidden="true"></span> Cancelar</a>
+                            <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/" id="btn-cancelar-maquina" type="button" class="btn btn-default">
+                                <span class="fa fa-times" aria-hidden="true"></span> Cancelar
+                            </a>
                         </div>
                     </form:form>
                 </div>

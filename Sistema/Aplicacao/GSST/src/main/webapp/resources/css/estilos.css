@@ -131,6 +131,11 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
     background:#ddd;
 }
 
+.desativar{
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
 .badge {
     background-color: #1d6e20;
 }
@@ -161,7 +166,7 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
 
 .conteudo .dropdown-menu{
     width: 80vw;
-    max-width: 500px;
+    max-width: 550px;
 }
 
 .dropdown-menu{
@@ -170,6 +175,10 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
 
 .dropdown-menu .dropdown-menu-body{
     padding: 15px 0px;
+}
+
+.dropdown-menu .dropdown-menu-body form .row{
+    margin: 0px;
 }
 
 .dropdown-menu .dropdown-menu-body > div{
@@ -187,7 +196,7 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
 
 .conteudo{
     max-width: 1200px;
-    width: 98%;
+    width: 100vw;
     padding: 10px 10px 100px;
     margin: auto;
     overflow: hidden !important;
@@ -234,9 +243,22 @@ a .list-group-item:focus, a .list-group-item:hover, .list-group-item:focus, .lis
     color: #fff;
 }
 
-#prazo{
-    cursor: pointer;
-    background-color: #fff;
+.hasDatepicker{
+    cursor: pointer !important;
+    background-color: #fff !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #30BB37;
+    background: #41FA49;
+    color: #444;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #1d6e20;
+    background: #26942c;
+    font-weight: normal;
+    color: #fff;
 }
 
 /*Hover e Focus dos links da navbar*/
@@ -309,7 +331,7 @@ a:focus, a:hover {
     color: #1d6e20;
 }
 
-.btn-default:active {
+.btn-default:active, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
     color: #1d6e20 !important;
 }
 
@@ -357,7 +379,7 @@ a:focus, a:hover {
     width: 23px;
 }
 
-.modal-nrs .modal-body{
+.modal-nrs .modal-body, .conteudo .dropdown-menu-body{
     overflow: auto;
     min-height: 100px;
     max-height: 70vh;
@@ -377,8 +399,22 @@ a:focus, a:hover {
 }
 
 .slider{
-    max-width: 500px;
     margin: auto;
+}
+
+.flexslider{
+    background: inherit !important;
+    border-width: 0px !important;
+}
+
+.flexslider .slides img {
+    width: auto !important;
+    max-width: 100%;
+    display: block;
+    max-height: 80vh;
+    -moz-user-select: none;
+    margin: auto;
+    border: 4px solid #fff;
 }
 
 .box-padronizar{
@@ -436,8 +472,8 @@ img {
 }
 
 .pendente h4, .resolvido h4{
-     text-align: center;
-     border-bottom: 1px solid #ddd;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
 /*.row{

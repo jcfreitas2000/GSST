@@ -176,8 +176,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.flexslider').flexslider({
-                    direction: "horizontal",
-                    itemMargin: 5
+                    direction: "horizontal"
                 });
             });
         </script>
