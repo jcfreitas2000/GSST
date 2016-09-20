@@ -114,7 +114,7 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             return false;
         }
     }
-    
+
     public boolean salvar(Processo processo) {
         Session s = this.getSession();
 
@@ -158,17 +158,20 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
         return processos;
     }
 
-    public List<Processo> paginacaoProcessoByUnidade(int idUnidade, int porPagina, int pagina, FiltroProcesso filtro) {
+    public List<Processo> paginacaoProcessoByUnidade(int idUnidade, int idFuncionario, int porPagina, int pagina, FiltroProcesso filtro) {
+        if (filtro == null) {
+            return null;
+        }
         Session s = this.getSession();
         List<Processo> processos = null;
 
         try {
             s.beginTransaction();
-            Query q = s.createQuery(" from Processo where maquina.unidade.idUnidade = :idUnidade order by estado, idProcesso DESC")
+            Query q = s.createQuery(" from Processo where maquina.unidade.idUnidade = :idUnidade " + filtro.getFiltros() + " order by estado, idProcesso DESC")
                     .setInteger("idUnidade", idUnidade)
-//                    .setString("filtro", filtro.getFiltros())
                     .setFirstResult(pagina * porPagina)
                     .setMaxResults(porPagina);
+            q = filtro.getQuery(q, idFuncionario);
             processos = findMany(q);
             for (Processo p : processos) {
                 Hibernate.initialize(p.getFuncionarioByIdRelator());
@@ -221,18 +224,25 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             s.getTransaction().rollback();
         }
 
-        return p.intValue();
+        if (p == null) {
+            return 0;
+        } else {
+            return p.intValue();
+        }
     }
 
-    public int countByUnidade(int idUnidade, FiltroProcesso filtro) {
+    public int countByUnidade(int idUnidade, int idFuncionario, FiltroProcesso filtro) {
+        if (filtro == null) {
+            return 0;
+        }
         Long p = null;
         Session s = this.getSession();
 
         try {
             s.beginTransaction();
-            Query q = s.createQuery("select count(*) from Processo where maquina.unidade.idUnidade = :idUnidade")
+            Query q = s.createQuery("select count(*) from Processo where maquina.unidade.idUnidade = :idUnidade " + filtro.getFiltros())
                     .setInteger("idUnidade", idUnidade);
-//                    .setString("filtro", "");
+            q = filtro.getQuery(q, idFuncionario);
             p = (Long) q.uniqueResult();
             s.getTransaction().commit();
         } catch (HibernateException e) {
@@ -240,6 +250,10 @@ public class ProcessoDAO extends GenericDAO<Processo, BigDecimal> {
             s.getTransaction().rollback();
         }
 
-        return p.intValue();
+        if (p == null) {
+            return 0;
+        } else {
+            return p.intValue();
+        }
     }
 }

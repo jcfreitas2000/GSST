@@ -2,6 +2,7 @@ package br.com.gsst.controller;
 
 import br.com.gsst.dao.UsuarioDAO;
 import br.com.gsst.model.Usuario;
+import br.com.gsst.outros.Email;
 import br.com.gsst.outros.Mensagem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -71,11 +73,26 @@ public class LoginController {
     }
 
     @RequestMapping("logoff")
-    public String logout(HttpSession session, HttpServletRequest request
-    ) {
+    public String logout(HttpSession session, HttpServletRequest request) {
         //Deleta a sessão
         session.invalidate();
         //Redireciona para a página anterior
+        return "redirect:/entrar";
+    }
+
+    @RequestMapping("recuperar-senha")
+    public String recuperarSenha(@RequestParam("recuperar-senha-email") String email, RedirectAttributes redirectAttributes) {
+        if (new Email(
+                email,
+                "GSST - Recuperar Senha",
+                "Olá " + "José Carlos" + ", <br><br>Foi requisitado a recuperação de sua senha no dia "
+                + "data" + ".<br>Sua senha é: " + "Senha" + "<br><br>Att,<br>Equipe GSST")
+                .submit()) {
+            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "info", "Recuperar senha", "Sua senha foi enviada para o email: " + email));
+        } else {
+            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "danger", "E-mail inválido", "O email " + email + " não está cadastrado no sistema!"));
+        }
+
         return "redirect:/entrar";
     }
 }

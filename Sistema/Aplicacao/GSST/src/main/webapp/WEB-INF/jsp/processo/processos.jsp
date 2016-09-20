@@ -37,7 +37,7 @@
                                         <form:input id="localizacao" type="text" path="localizacao" cssClass="form-control" placeholder="Localização" data-toggle="tooltip" data-placement="bottom" title="Digite a localização da máquina" />
                                         <form:errors path="localizacao" cssStyle="color:red"/>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <form:label path="setor" for="setor">Setor</form:label>
@@ -158,7 +158,11 @@
             <!--Conteúdo-->
             <div class="conteudo">
 
-                <h2>Processos</h2>
+                <h2>Processos 
+                    <c:if test="${requestScope['javax.servlet.forward.request_uri'].contains('filtrar')}">
+                        <small style="color: #f39c12;">(Filtros ativos)</small>
+                    </c:if>
+                </h2>
 
                 <div class="clearfix">
                     <div class="pull-left">
@@ -167,7 +171,7 @@
                         </button>
                     </div>
                     <div class="pull-right">
-                        <a href="novo" class="btn btn-primary"><span class="fa fa-tasks" aria-hidden="true"></span> Novo processo</a>
+                        <a href="${pageContext.request.contextPath}/user/processos/novo" class="btn btn-primary"><span class="fa fa-tasks" aria-hidden="true"></span> Novo processo</a>
                     </div>
                 </div>
 
@@ -188,7 +192,7 @@
                         <c:otherwise>
                             <c:forEach items="${processos}" var="p">
                                 <div class="col-xs-12 col-sm-6 col-md-4 ${p.estado}">
-                                    <a href="visualizar/${p.idProcesso}/">
+                                    <a href="${pageContext.request.contextPath}/user/processos/visualizar/${p.idProcesso}/">
                                         <div class="box box-padronizar">
                                             <span class="fa ${p.estado.equals('resolvido') ? 'fa fa-check-circle':'fa-exclamation-circle'}" aria-hidden="true"></span>
                                             <div class="box-hidden">

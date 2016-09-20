@@ -45,7 +45,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(produces = {"application/json; charset=UTF-8", "*/*;charset=UTF-8"})
 public class ProcessosController {
 
-    int porPagina = 2;
+    int porPagina = 12;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -114,7 +114,7 @@ public class ProcessosController {
 
     @RequestMapping("user/processos/filtrar/")
     public String filtrar(@ModelAttribute("filtro") FiltroProcesso filtro, HttpSession session, Model model) {
-        if (!filtro.isFiltro() || !paginacao(1, session, model, filtro)) {
+        if (!filtro.isFiltro()) {
             session.removeAttribute("filtro");
 
             return "redirect:/user/processos/";
@@ -122,11 +122,11 @@ public class ProcessosController {
             session.setAttribute("filtro", filtro);
         }
 
-        return "processo/processos";
+        return "redirect:/user/processos/filtrar/1";
     }
 
     @RequestMapping("user/processos/filtrar/{num}")
-    public String filtrar(@PathVariable("num") int num, HttpSession session, Model model) {
+    public String filtrar(@PathVariable("num") int num, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         FiltroProcesso filtro = (FiltroProcesso) session.getAttribute("filtro");
         
         if(filtro == null){
@@ -134,6 +134,9 @@ public class ProcessosController {
         }
         
         if (num <= 0 || !paginacao(num, session, model, filtro)) {
+            redirectAttributes.addFlashAttribute("msgProcesso", new Mensagem(true, "warning", "Sem resultados", "Não há processos para o filtro utilizado"));
+            redirectAttributes.addFlashAttribute("filtro", filtro);
+            
             return "redirect:/user/processos/";
         }
         
@@ -144,14 +147,15 @@ public class ProcessosController {
 
     public boolean paginacao(int num, HttpSession session, Model model, FiltroProcesso filtro) {
         ProcessoDAO processoDAO = new ProcessoDAO();
-        int idUnidade = ((Usuario) session.getAttribute("usuarioLogado")).getFuncionario().getUnidade().getIdUnidade();
+        Usuario user = (Usuario) session.getAttribute("usuarioLogado");
+        int idUnidade = user.getFuncionario().getUnidade().getIdUnidade();
         int total;
         if (filtro == null) {
             total = processoDAO.countByUnidade(idUnidade);
             model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, num - 1));
         } else {
-            total = processoDAO.countByUnidade(idUnidade, filtro);
-            model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, this.porPagina, num - 1, filtro));
+            total = processoDAO.countByUnidade(idUnidade, user.getIdFuncionario(), filtro);
+            model.addAttribute("processos", processoDAO.paginacaoProcessoByUnidade(idUnidade, user.getIdFuncionario(), this.porPagina, num - 1, filtro));
         }
         int count = (int) Math.ceil(total / (double) this.porPagina);
 

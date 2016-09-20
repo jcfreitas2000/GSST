@@ -1,6 +1,8 @@
 package br.com.gsst.model;
 
+import java.text.Normalizer;
 import java.util.Date;
+import org.hibernate.Query;
 
 /*
     Autor: José Carlos de Freitas
@@ -161,24 +163,91 @@ public class FiltroProcesso {
         String filtros = "";
 
         if (this.idMaquina > 0) {
-            filtros += " && maquina.idMaquina = " + this.idMaquina;
+            filtros += " AND maquina.idMaquina = :idMaquina ";
         }
         if (this.localizacao.trim().length() > 0) {
-            filtros += " && localizacao like %" + this.localizacao + "%";
+            filtros += " AND lower(TRANSLATE(localizacao,'ÁáÂâÀàÃãÉéÊêÈèÍíÎîÌìÓóÔôÒòÕõÚúÛûÙùÇç','aaaaaaaaeeeeeeiiiiiioooooooouuuuuucc')) like :localizacao";
         }
         if (this.setor.trim().length() > 0) {
-            filtros += " && setor like %" + this.setor + "%";
+            filtros += " AND lower(TRANSLATE(setor,'ÁáÂâÀàÃãÉéÊêÈèÍíÎîÌìÓóÔôÒòÕõÚúÛûÙùÇç','aaaaaaaaeeeeeeiiiiiioooooooouuuuuucc')) like :setor";
         }
+        
         if (this.minhaResponsabilidade) {
-            filtros += " && minhaResponsabilidade = true";
+            filtros += " AND funcionarioByIdRespCorrecao.idFuncionario = :minhaResponsabilidade";
         }
         if (this.relatadoPorMim) {
-            filtros += " && relatadoPorMim = true";
+            filtros += " AND funcionarioByIdRelator.idFuncionario = :relatadoPorMim";
         }
         if (this.resolvidoPorMim){
-            filtros += " && resolvidoPorMim = true";
+            filtros += " AND funcionarioByIdResolucao.idFuncionario = :resolvidoPorMim";
+        }
+        
+        if (this.relatadoEmInicial != null){
+            filtros += " AND data >= :relatadoEmInicial";
+        }
+        if (this.relatadoEmFinal != null){
+            filtros += " AND data <= :relatadoEmFinal";
+        }
+        
+        if (this.prazoInicial != null){
+            filtros += " AND prazo >= :prazoInicial";
+        }
+        if (this.prazoFinal != null){
+            filtros += " AND prazo <= :prazoFinal";
+        }
+        
+        if (this.resolvidoEmInicial != null){
+            filtros += " AND dataResolucao >= :resolvidoEmInicial";
+        }
+        if (this.resolvidoEmFinal != null){
+            filtros += " AND dataResolucao <= :resolvidoEmFinal";
         }
 
         return filtros;
+    }
+    
+    public Query getQuery(Query q, int idFuncionario) {
+        if (this.idMaquina > 0) {
+            q.setInteger("idMaquina", this.idMaquina);
+        }
+        if (this.localizacao.trim().length() > 0) {
+            q.setString("localizacao", "%" + Normalizer.normalize(this.localizacao, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase() + "%");
+        }
+        if (this.setor.trim().length() > 0) {
+            q.setString("setor", "%" + Normalizer.normalize(this.setor, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase() + "%");
+        }
+        
+        if (this.minhaResponsabilidade) {
+            q.setInteger("minhaResponsabilidade", idFuncionario);
+        }
+        if (this.relatadoPorMim) {
+            q.setInteger("relatadoPorMim", idFuncionario);
+        }
+        if (this.resolvidoPorMim){
+            q.setInteger("resolvidoPorMim", idFuncionario);
+        }
+        
+        if (this.relatadoEmInicial != null){
+            q.setDate("relatadoEmInicial", this.relatadoEmInicial);
+        }
+        if (this.relatadoEmFinal != null){
+            q.setDate("relatadoEmFinal", this.relatadoEmFinal);
+        }
+        
+        if (this.prazoInicial != null){
+            q.setDate("prazoInicial", this.prazoInicial);
+        }
+        if (this.prazoFinal != null){
+            q.setDate("prazoFinal", this.prazoFinal);
+        }
+        
+        if (this.resolvidoEmInicial != null){
+            q.setDate("resolvidoEmInicial", this.resolvidoEmInicial);
+        }
+        if (this.resolvidoEmFinal != null){
+            q.setDate("resolvidoEmFinal", this.resolvidoEmFinal);
+        }
+
+        return q;
     }
 }

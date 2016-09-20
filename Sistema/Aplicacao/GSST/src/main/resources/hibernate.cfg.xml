@@ -8,6 +8,7 @@
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">josecarlos</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
     <mapping class="br.com.gsst.model.Maquina"/>
     <mapping class="br.com.gsst.model.Empresa"/>
     <mapping class="br.com.gsst.model.Processo"/>
