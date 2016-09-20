@@ -62,6 +62,6 @@
         <!--Imports para DataTable-->
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.js"></script>
         <!--Js da página-->
-        <script src="<%=request.getContextPath()%>/resources/js/gerenciarUsuarios.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/gerenciarUsuarios.js" type="text/javascript"></script>
     </body>
 </html>

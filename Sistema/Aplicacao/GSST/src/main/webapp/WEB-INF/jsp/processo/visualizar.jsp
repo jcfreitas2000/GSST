@@ -12,7 +12,7 @@
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         <%@include file="/WEB-INF/jsp/estrutura/importMetaCss.jsp" %>
-        <link href="<%=request.getContextPath()%>/resources/plugins/FlexSlider-2.6.2/flexslider.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/resources/plugins/FlexSlider-2.6.2/flexslider.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <!-- Modal para resolução de processos -->
@@ -132,7 +132,7 @@
 
                     <ul class="list-group">
                         <c:forEach var="nr" items="${p.getNrs()}">
-                            <a target="nr" href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
+                            <a target="nr" href="${pageContext.request.contextPath}/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
                                 <li class="list-group-item">
                                     Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
                                 </li>
@@ -155,7 +155,7 @@
                                     <ul class="slides">
                                         <c:forEach begin="1" end="${p.numFotos}" var="i">
                                             <li>
-                                                <img src="<%=request.getContextPath()%>/processoFoto?processo=${p.idProcesso}&img=${i}" />
+                                                <img src="${pageContext.request.contextPath}/processoFoto?processo=${p.idProcesso}&img=${i}" />
                                             </li>
                                         </c:forEach>
                                     </ul>
@@ -171,7 +171,7 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/plugins/FlexSlider-2.6.2/jquery.flexslider-min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/plugins/FlexSlider-2.6.2/jquery.flexslider-min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {

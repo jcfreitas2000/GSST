@@ -156,7 +156,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <span class="fa fa-floppy-o" aria-hidden="true"></span> Salvar
                             </button>
-                            <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/" id="btn-cancelar-maquina" type="button" class="btn btn-default">
+                            <a href="${pageContext.request.contextPath}/admin/gerenciar-usuarios/" id="btn-cancelar-maquina" type="button" class="btn btn-default">
                                 <span class="fa fa-times" aria-hidden="true"></span> Cancelar
                             </a>
                         </div>

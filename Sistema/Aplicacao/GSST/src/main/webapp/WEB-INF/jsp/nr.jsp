@@ -19,9 +19,9 @@
             <!--Conteúdo-->
             <div class="conteudo">
                 <div class="mapa">
-                    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a> 
+                    <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="${pageContext.request.contextPath}/user/normas-regulamentadoras">Normas Regulamentadoras</a> 
                     <c:forEach var="num" items="${mapa}">
-                        <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${num.replace(".","-")}">NR ${num}</a> 
+                        <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> <a href="${pageContext.request.contextPath}/user/normas-regulamentadoras/${num.replace(".","-")}">NR ${num}</a> 
                     </c:forEach>
                     <span class="fa fa-chevron-circle-right" aria-hidden="true"></span> NR ${nr.getNumero()}
                 </div>
@@ -31,7 +31,7 @@
 
                 <ul class="list-group">
                     <c:forEach var="nr" items="${nr.getNrs()}">
-                        <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
+                        <a href="${pageContext.request.contextPath}/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
                             <li class="list-group-item">
                                 <span class="badge">${nr.getNrs().size()}</span>
                                 Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}
@@ -47,6 +47,6 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/js/processos.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/processos.js" type="text/javascript"></script>
     </body>
 </html>

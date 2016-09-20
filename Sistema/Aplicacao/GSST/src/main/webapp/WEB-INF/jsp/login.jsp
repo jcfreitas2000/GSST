@@ -16,7 +16,7 @@
     <body>
         <div class="wraper">
             <!--Cabeçalho-->
-            <img class="img-center" src="<%=request.getContextPath()%>/resources/imagens/logo.png" alt="gsst"/>
+            <img class="img-center" src="${pageContext.request.contextPath}/resources/imagens/logo.png" alt="gsst"/>
             <div class="text-center">
                 <h2>
                     Bem vindo ao sistema GSSTSV 

@@ -12,7 +12,17 @@ $(document).ready(function () {
         showOtherMonths: true,
         selectOtherMonths: true,
         dateFormat: "dd/mm/yy",
-        minDate: 0
+        minDate: 0,
+        showButtonPanel: true,
+        currentText: 'Hoje',
+        closeText: '<span class="fa fa-eraser" aria-hidden="true"></span> Limpar',
+        onClose: function () {
+            var event = arguments.callee.caller.caller.arguments[0];
+            // If "Clear" gets clicked, then really clear it
+            if ($(event.delegateTarget).hasClass('ui-datepicker-close')) {
+                $(this).val('');
+            }
+        }
     });
 
     if (window.location.hash == "#adicionarMaquina") {
@@ -72,9 +82,9 @@ function ajaxNr(id) {
     if (blockNr) {
         return;
     }
-    
+
     blockNr = true;
-    
+
     $("#adicionar-nr").hide();
     $("#loading-nr").show();
 
@@ -84,7 +94,7 @@ function ajaxNr(id) {
             $("#adicionar-nr").show();
             $("#loading-nr").hide();
         }
-        
+
         blockNr = false;
     });
 }

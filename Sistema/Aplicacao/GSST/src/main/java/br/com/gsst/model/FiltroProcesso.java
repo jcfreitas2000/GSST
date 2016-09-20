@@ -6,18 +6,17 @@ import java.util.Date;
     Autor: José Carlos de Freitas
     Data: 16/09/2016, 08:36:27
     Arquivo: Filtro
-*/
-
+ */
 public class FiltroProcesso {
 
     private int idMaquina;
     private String localizacao;
     private String setor;
-    
+
     private boolean relatadoPorMim;
     private boolean minhaResponsabilidade;
     private boolean resolvidoPorMim;
-    
+
     private Date relatadoEmInicial;
     private Date relatadoEmFinal;
     private Date prazoInicial;
@@ -138,6 +137,48 @@ public class FiltroProcesso {
     public void setResolvidoEmFinal(Date resolvidoEmFinal) {
         this.resolvidoEmFinal = resolvidoEmFinal;
     }
-    
-    
+
+    public boolean isFiltro() {
+        if (this.idMaquina > 0) {
+            return true;
+        }
+        if (this.localizacao.trim().length() > 0 || this.setor.trim().length() > 0) {
+            return true;
+        }
+        if (this.minhaResponsabilidade || this.relatadoPorMim || this.resolvidoPorMim) {
+            return true;
+        }
+        if (this.relatadoEmFinal != null || this.relatadoEmInicial != null
+                || this.prazoInicial != null || this.prazoFinal != null
+                || this.resolvidoEmInicial != null || this.resolvidoEmFinal != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public String getFiltros() {
+        String filtros = "";
+
+        if (this.idMaquina > 0) {
+            filtros += " && maquina.idMaquina = " + this.idMaquina;
+        }
+        if (this.localizacao.trim().length() > 0) {
+            filtros += " && localizacao like %" + this.localizacao + "%";
+        }
+        if (this.setor.trim().length() > 0) {
+            filtros += " && setor like %" + this.setor + "%";
+        }
+        if (this.minhaResponsabilidade) {
+            filtros += " && minhaResponsabilidade = true";
+        }
+        if (this.relatadoPorMim) {
+            filtros += " && relatadoPorMim = true";
+        }
+        if (this.resolvidoPorMim){
+            filtros += " && resolvidoPorMim = true";
+        }
+
+        return filtros;
+    }
 }

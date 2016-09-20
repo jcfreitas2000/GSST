@@ -14,14 +14,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<%=request.getContextPath()%>/user/index">GSST</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/index">GSST</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/processos/">Processos</a></li>
-                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a></li>
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("processos") ? "active" : ""}"><a href="${pageContext.request.contextPath}/user/processos/">Processos</a></li>
+                <li class="${requestScope['javax.servlet.forward.request_uri'].contains("normas-regulamentadoras") ? "active" : ""}"><a href="${pageContext.request.contextPath}/user/normas-regulamentadoras">Normas Regulamentadoras</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"></a></li>
@@ -42,17 +42,17 @@
                             <c:if test="${usuarioLogado.nivelAcesso == 'admin'}">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="<%=request.getContextPath()%>/admin/gerenciar-usuarios/"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
+                                        <a href="${pageContext.request.contextPath}/admin/gerenciar-usuarios/"><span class="fa fa-users" aria-hidden="true"></span> Gerenciar usuários</a>
                                     </div>
                                 </div>
                             </c:if>
                         </div>
                         <div class="dropdown-menu-footer clearfix">
                             <div class="pull-left">
-                                <a href="<%=request.getContextPath()%>/user/editar-dados/"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar dados</a>
+                                <a href="${pageContext.request.contextPath}/user/editar-dados/"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar dados</a>
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="<%=request.getContextPath()%>/logoff"><span class="fa fa-sign-out" aria-hidden="true"></span> Sair</a>
+                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/logoff"><span class="fa fa-sign-out" aria-hidden="true"></span> Sair</a>
                             </div>
                         </div>
                     </div>

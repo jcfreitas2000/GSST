@@ -7,7 +7,7 @@
 <footer class="footer clearfix">
     <div class="container-fluid">
         <div class="pull-right">
-            <img src="<%=request.getContextPath()%>/resources/imagens/logo.png" alt=""/>
+            <img src="${pageContext.request.contextPath}/resources/imagens/logo.png" alt=""/>
         </div>
     </div>
 </footer>

@@ -23,8 +23,8 @@
                 <p>Essa não é a página que você está procurando.</p>
 
                 <div class="text-center">
-                    <a class="btn btn-default btn-lg" href="<%=request.getContextPath()%>/user/processos/">Processos</a>
-                    <a class="btn btn-default btn-lg" href="<%=request.getContextPath()%>/user/normas-regulamentadoras">Normas Regulamentadoras</a>
+                    <a class="btn btn-default btn-lg" href="${pageContext.request.contextPath}/user/processos/">Processos</a>
+                    <a class="btn btn-default btn-lg" href="${pageContext.request.contextPath}/user/normas-regulamentadoras">Normas Regulamentadoras</a>
                 </div>
                 
             </div>
@@ -34,6 +34,6 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/js/processos.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/processos.js" type="text/javascript"></script>
     </body>
 </html>

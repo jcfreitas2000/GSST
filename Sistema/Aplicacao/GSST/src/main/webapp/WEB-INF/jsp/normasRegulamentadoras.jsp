@@ -25,7 +25,7 @@
 
                 <ul class="list-group">
                     <c:forEach var="nr" items="${nrs}">
-                        <a href="<%=request.getContextPath()%>/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
+                        <a href="${pageContext.request.contextPath}/user/normas-regulamentadoras/${nr.getNumero().replace(".","-")}">
                             <li class="list-group-item">
                                 <span class="badge">${nr.getNrs().size()}</span>
                                 Norma Regulamentadora Nº ${nr.getNumero()} - ${nr.getDescricao()}

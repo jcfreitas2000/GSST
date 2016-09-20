@@ -20,7 +20,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-nrs-label">
                             ${nr == null ? "Normas Regulamentadoras" : "Norma Regulamentadora Nº  ".concat(nr.getNumero())}
-                            <img id="loading-nr" src="<%=request.getContextPath()%>/resources/imagens/loading.gif" style="display: none;">
+                            <img id="loading-nr" src="${pageContext.request.contextPath}/resources/imagens/loading.gif" style="display: none;">
                         </h4>
                     </div>
                     <div class="modal-body">
@@ -36,7 +36,9 @@
                         </ul>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="fa fa-times" aria-hidden="true"></span> Fechar
+                        </button>
                         <button id="adicionar-nr" type="button" class="btn btn-primary" style="display: none;">Adicionar</button>
                     </div>
                 </div>
@@ -94,7 +96,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <form:label path="maquina.idMaquina">Selecione a máquina</form:label>
-                                        <div class="input-group">
+                                        <div class="input-group input-group-separado">
                                         <form:select path="maquina.idMaquina" id="select-maquina" cssClass="form-control" required="required" data-toggle="tooltip" data-placement="bottom" title="Selecione a máquina">
                                             <option value="">-- Selecione uma máquina --</option>
                                             <form:options items="${maquinas}" itemValue="idMaquina" itemLabel="numPatrimonio"/>
@@ -196,6 +198,6 @@
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
         <!--JS da página-->
-        <script src="<%=request.getContextPath()%>/resources/js/frmProcessos.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/frmProcessos.js" type="text/javascript"></script>
     </body>
 </html>

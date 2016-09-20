@@ -112,7 +112,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <span class="fa fa-floppy-o" aria-hidden="true"></span> Salvar
                             </button>
-                            <a href="<%=request.getContextPath()%>" id="btn-cancelar-maquina" type="button" class="btn btn-default">
+                            <a href="${pageContext.request.contextPath}" id="btn-cancelar-maquina" type="button" class="btn btn-default">
                                 <span class="fa fa-times" aria-hidden="true"></span> Cancelar
                             </a>
                         </div>
@@ -126,6 +126,6 @@
         </div>
         <!--ImportJS-->
         <%@include file="/WEB-INF/jsp/estrutura/importJs.jsp" %>
-        <script src="<%=request.getContextPath()%>/resources/js/editarDados.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/editarDados.js" type="text/javascript"></script>
     </body>
 </html>
