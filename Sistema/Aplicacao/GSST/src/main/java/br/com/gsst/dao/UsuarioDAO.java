@@ -54,7 +54,7 @@ public class UsuarioDAO extends GenericDAO<Usuario, BigDecimal> {
         return user;
     }
 
-    public Usuario getUsuarioByEmail(Usuario usuario) {
+    public Usuario getUsuarioByEmailAndSenha(Usuario usuario) {
         Session s = this.getSession();
         Usuario user = null;
 
@@ -63,6 +63,24 @@ public class UsuarioDAO extends GenericDAO<Usuario, BigDecimal> {
             Query q = s.createQuery(" from Usuario where funcionario.email = :email and senha = :senha")
                     .setString("email", usuario.getFuncionario().getEmail())
                     .setString("senha", usuario.getSenha());
+            user = findOne(q);
+            s.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            s.getTransaction().rollback();
+        }
+
+        return user;
+    }
+
+    public Usuario getUsuarioByEmail(String email) {
+        Session s = this.getSession();
+        Usuario user = null;
+
+        try {
+            s.beginTransaction();
+            Query q = s.createQuery(" from Usuario where funcionario.email = :email")
+                    .setString("email", email);
             user = findOne(q);
             s.getTransaction().commit();
         } catch (HibernateException e) {

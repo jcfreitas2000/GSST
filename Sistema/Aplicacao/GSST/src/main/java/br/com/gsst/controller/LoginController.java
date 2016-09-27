@@ -4,6 +4,8 @@ import br.com.gsst.dao.UsuarioDAO;
 import br.com.gsst.model.Usuario;
 import br.com.gsst.outros.Email;
 import br.com.gsst.outros.Mensagem;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -44,7 +46,7 @@ public class LoginController {
         }
 
         UsuarioDAO dao = new UsuarioDAO();
-        Usuario user = dao.getUsuarioByEmail(usuario);
+        Usuario user = dao.getUsuarioByEmailAndSenha(usuario);
 
         if (user != null) { //VERIFICA SE ENCONTROU USUÁRIO
             if (!user.isAtivo()) { //VERIFICA SE O USUÁRIO ESTÁ AUTORIZADO PELO ADMIN
@@ -81,16 +83,29 @@ public class LoginController {
     }
 
     @RequestMapping("recuperar-senha")
-    public String recuperarSenha(@RequestParam("recuperar-senha-email") String email, RedirectAttributes redirectAttributes) {
-        if (new Email(
+    public String recuperarSenha(@RequestParam("recuperar-senha-email") String email, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        Usuario usuario = new UsuarioDAO().getUsuarioByEmail(email);
+        String uri = request.getHeader("Referer").replace(request.getServletPath(), "").replace(request.getQueryString() == null ? "" : request.getQueryString(), "");
+        if (usuario == null) {
+            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "danger", "E-mail não cadastrado", "O email " + email + " não está cadastrado no sistema! Contate um administrador."));
+        } else if (new Email(
                 email,
                 "GSST - Recuperar Senha",
-                "Olá " + "José Carlos" + ", <br><br>Foi requisitado a recuperação de sua senha no dia "
-                + "data" + ".<br>Sua senha é: " + "Senha" + "<br><br>Att,<br>Equipe GSST")
+                "Prezado(a) " + usuario.getFuncionario().getNome() + ","
+                + "<br><br>Foi solicitado a recuperação de sua senha no dia "
+                + new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + " às " + new SimpleDateFormat("HH:mm:ss").format(new Date()) + ". "
+                + "Se esta requisição não foi realizada pelo senhor(a), apenas ignore esta mensagem."
+                + "<br><br>Os dados para acesso são:"
+                + "<br>E-mail: <b>" + usuario.getFuncionario().getEmail() + "</b>"
+                + "<br>Senha: <b>" + usuario.getSenha() + "</b>"
+                + "<br><br>O sistema pode ser acessado por meio do link &lt;<a href=\"" + uri + "\">" + uri + "</a>&gt;."
+                + "<br>Para alterar sua senha acesse o sistema e navegue para Dados Pessoais."
+                + "<br><br>Atenciosamente,"
+                + "<br>Equipe GSST")
                 .submit()) {
-            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "info", "Recuperar senha", "Sua senha foi enviada para o email: " + email));
+            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "success", "Recuperar senha", "Sua senha foi enviada para o email: " + email));
         } else {
-            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "danger", "E-mail inválido", "O email " + email + " não está cadastrado no sistema!"));
+            redirectAttributes.addFlashAttribute("mensagem", new Mensagem(true, "danger", "E-mail inválido", "O email " + email + " não é um endereço de email válido."));
         }
 
         return "redirect:/entrar";

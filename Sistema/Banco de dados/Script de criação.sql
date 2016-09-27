@@ -97,11 +97,11 @@ CREATE TABLE processo(
 	setor text,
 	medida_corretiva text,
 	data timestamp default now(),
-	prazo date,
+	prazo timestamp,
 	multa decimal(10,2),
 	num_fotos int,
 	estado text,
-	data_resolucao date,
+	data_resolucao timestamp,
 	resolucao text,
 	id_relator int not null
 		REFERENCES funcionario (id_funcionario)

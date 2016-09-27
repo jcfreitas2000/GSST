@@ -395,7 +395,7 @@ a:focus, a:hover {
 }
 
 .conteudo > div, .margin-top{
-    margin-top: 15px;
+    padding-top: 15px;
 }
 
 .slider{

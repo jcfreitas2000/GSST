@@ -100,7 +100,7 @@
                             <b>Relatado por:</b> ${p.funcionarioByIdRelator.nome}
                         </div>
                         <div class="col-sm-6 col-xs-12">
-                            <b>Relatado em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" />
+                            <b>Relatado em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.data}" /> às <fmt:formatDate pattern="HH:mm:ss" type="date" value="${p.data}" />
                         </div>
                     </div>
                     <div class="row">
@@ -121,7 +121,7 @@
                                 <b>Rosolvido por:</b> ${p.funcionarioByIdResolucao.nome}
                             </div>
                             <div class="col-sm-6 col-xs-12">
-                                <b>Resolvido em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.dataResolucao}" />
+                                <b>Resolvido em:</b> <fmt:formatDate pattern="dd/MM/yyyy" type="date" value="${p.dataResolucao}" /> às <fmt:formatDate pattern="HH:mm:ss" type="date" value="${p.dataResolucao}" />
                             </div>
                         </div>
                     </c:if>
@@ -149,13 +149,15 @@
                     </c:if>
 
                     <c:if test="${p.numFotos > 0}">
-                        <div class="margin-top clearfix">
+                        <div id="imgs" class="margin-top clearfix">
                             <div class="slider">
                                 <div class="flexslider">
                                     <ul class="slides">
                                         <c:forEach begin="1" end="${p.numFotos}" var="i">
                                             <li>
-                                                <img src="${pageContext.request.contextPath}/processoFoto?processo=${p.idProcesso}&img=${i}" />
+                                                <a href="#imgs">
+                                                    <img src="${pageContext.request.contextPath}/processoFoto?processo=${p.idProcesso}&img=${i}" />
+                                                </a>
                                             </li>
                                         </c:forEach>
                                     </ul>

@@ -167,8 +167,8 @@ public class Processo implements java.io.Serializable {
         this.data = data;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "prazo", length = 13)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "prazo", length = 29)
     public Date getPrazo() {
         return this.prazo;
     }
@@ -204,8 +204,8 @@ public class Processo implements java.io.Serializable {
         this.multa = multa;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "data_resolucao", length = 13)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_resolucao", length = 29)
     public Date getDataResolucao() {
         return dataResolucao;
     }

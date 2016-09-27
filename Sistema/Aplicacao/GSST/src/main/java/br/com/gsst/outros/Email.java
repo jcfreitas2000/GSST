@@ -78,6 +78,7 @@ public class Email {
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
+            e.printStackTrace();
             return false;
         }
     }
